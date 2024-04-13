@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(User_Settings));
             btnApply = new Button();
             numericUpDownLength = new NumericUpDown();
             chkIncludeUppercase = new CheckBox();
@@ -129,6 +130,7 @@
             Controls.Add(numericUpDownLength);
             Controls.Add(btnApply);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "User_Settings";
             Text = "Password Settings";
             ((System.ComponentModel.ISupportInitialize)numericUpDownLength).EndInit();

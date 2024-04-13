@@ -12,12 +12,36 @@ namespace PassGen
 {
     public partial class User_Settings : Form
     {
-        //Retrieves the status of the checkboxes and then retains them
-        public int PasswordLength { get; private set; }
-        public bool IncludeUppercase { get; private set; }
-        public bool IncludeLowercase { get; private set; }
-        public bool IncludeNumbers { get; private set; }
-        public bool IncludeSpecialChars { get; private set; }
+        // Properties to access control values
+        public int PasswordLength
+        {
+            get => (int)numericUpDownLength.Value;
+            set => numericUpDownLength.Value = value;
+        }
+
+        public bool IncludeUppercase
+        {
+            get => chkIncludeUppercase.Checked;
+            set => chkIncludeUppercase.Checked = value;
+        }
+
+        public bool IncludeLowercase
+        {
+            get => chkIncludeLowercase.Checked;
+            set => chkIncludeLowercase.Checked = value;
+        }
+
+        public bool IncludeNumbers
+        {
+            get => chkIncludeNumbers.Checked;
+            set => chkIncludeNumbers.Checked = value;
+        }
+
+        public bool IncludeSpecialChars
+        {
+            get => chkIncludeSpecialChars.Checked;
+            set => chkIncludeSpecialChars.Checked = value;
+        }
 
         public User_Settings()
         {
@@ -27,13 +51,6 @@ namespace PassGen
         private void btnApply_Click(object sender, EventArgs e)
         {
             //Applies the selected parameters to the algorithm and then generates the password
-            PasswordLength = (int)numericUpDownLength.Value;
-            IncludeUppercase = chkIncludeUppercase.Checked;
-            IncludeLowercase = chkIncludeLowercase.Checked;
-            IncludeNumbers = chkIncludeNumbers.Checked;
-            IncludeSpecialChars = chkIncludeSpecialChars.Checked;
-
-            //Confirms the user's choice
             DialogResult = DialogResult.OK;
             Close();
         }

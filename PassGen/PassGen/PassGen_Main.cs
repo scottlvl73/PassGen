@@ -6,7 +6,7 @@ namespace PassGen
 {
     public partial class PassGen_Main : Form
     {
-        private User_Settings settingsForm;
+        public User_Settings settingsForm;
 
         public PassGen_Main()
         {
@@ -34,7 +34,7 @@ namespace PassGen
 
 
 
-        private string GeneratePassword(int length, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
+        public string GeneratePassword(int length, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
             const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
@@ -69,7 +69,7 @@ namespace PassGen
         private void btnSave_Click(object sender, EventArgs e)
         {
             //Alerts the user that their password has been saved
-            string message = "Are your sure you want to save this password?";
+            string message = "Are you sure you want to save this password?";
             string title = "Save";
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Question);
@@ -83,7 +83,7 @@ namespace PassGen
             }
             else
             {
-                string message_no = "Your password has not been saved...";
+                string message_no = "Your password has not been saved.";
                 MessageBox.Show(message_no);
             }
 

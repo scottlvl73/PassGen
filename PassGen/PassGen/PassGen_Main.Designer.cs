@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PassGen_Main));
             btnGenerate = new Button();
             txtPassword = new TextBox();
             btnSave = new Button();
@@ -94,6 +95,7 @@
             ClientSize = new Size(498, 478);
             Controls.Add(pictureBox1);
             Controls.Add(mainPanel);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "PassGen_Main";
             Text = "PassGen";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
