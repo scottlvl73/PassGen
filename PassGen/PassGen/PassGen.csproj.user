@@ -4,6 +4,9 @@
     <Compile Update="PassGen_Main.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="StrengthMeter.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="User_Settings.cs">
       <SubType>Form</SubType>
     </Compile>

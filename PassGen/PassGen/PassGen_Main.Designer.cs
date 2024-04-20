@@ -34,13 +34,14 @@
             btnSave = new Button();
             pictureBox1 = new PictureBox();
             mainPanel = new Panel();
+            lblPasswordStrength = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             mainPanel.SuspendLayout();
             SuspendLayout();
             // 
             // btnGenerate
             // 
-            btnGenerate.Location = new Point(84, 183);
+            btnGenerate.Location = new Point(161, 221);
             btnGenerate.Name = "btnGenerate";
             btnGenerate.Size = new Size(92, 32);
             btnGenerate.TabIndex = 0;
@@ -59,7 +60,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(245, 183);
+            btnSave.Location = new Point(321, 305);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(92, 32);
             btnSave.TabIndex = 2;
@@ -80,6 +81,7 @@
             // mainPanel
             // 
             mainPanel.BorderStyle = BorderStyle.FixedSingle;
+            mainPanel.Controls.Add(lblPasswordStrength);
             mainPanel.Controls.Add(txtPassword);
             mainPanel.Controls.Add(btnGenerate);
             mainPanel.Controls.Add(btnSave);
@@ -87,6 +89,15 @@
             mainPanel.Name = "mainPanel";
             mainPanel.Size = new Size(418, 342);
             mainPanel.TabIndex = 4;
+            // 
+            // lblPasswordStrength
+            // 
+            lblPasswordStrength.AutoSize = true;
+            lblPasswordStrength.Location = new Point(187, 186);
+            lblPasswordStrength.Name = "lblPasswordStrength";
+            lblPasswordStrength.Size = new Size(37, 15);
+            lblPasswordStrength.TabIndex = 3;
+            lblPasswordStrength.Text = "------";
             // 
             // PassGen_Main
             // 
@@ -111,5 +122,6 @@
         private Button btnSave;
         private PictureBox pictureBox1;
         private Panel mainPanel;
+        private Label lblPasswordStrength;
     }
 }

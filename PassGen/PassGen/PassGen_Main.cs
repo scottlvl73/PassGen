@@ -6,12 +6,29 @@ namespace PassGen
 {
     public partial class PassGen_Main : Form
     {
+        private StrengthMeter strengthMeter;
+
+        const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+        const string numberChars = "0123456789";
+        const string specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
         public User_Settings settingsForm;
 
         public PassGen_Main()
         {
             InitializeComponent();
             settingsForm = new User_Settings();
+            strengthMeter = new StrengthMeter();
+            // Used for adjusting the location of the custom drawn meter
+            //Important for any UI changes
+            strengthMeter.Location = new Point(180, 265); 
+            //Used for adjust the size of the custom drawn meter
+            //Important for any UI changes
+            strengthMeter.Size = new Size(200, 20); 
+            Controls.Add(strengthMeter);
+
+            strengthMeter.BringToFront();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -29,10 +46,61 @@ namespace PassGen
 
                 // Shows the user's generated password in the main textbox
                 txtPassword.Text = password;
+
+                // Calculate password strength
+                int strength = CalculatePasswordStrength(password, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
+
+                // Updates the drawn strengthMeter every time the CalculatePasswordStrength function is called
+                strengthMeter.Strength = strength;
+
+                // Updates the password strength label when the UpdatePasswordStrengthLabel function is called
+                UpdatePasswordStrengthLabel(strength);
             }
         }
 
+        //Algorithm for determining password strength
+        private int CalculatePasswordStrength(string password, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
+        {
+           //Measures length
+            int lengthScore = password.Length * 4; 
 
+            //Checks for a variety in character sets to determine strength
+            //Uses uppercase, lowercase, numbers, and special character pools
+            int diversityScore = 0;
+            if (includeUppercase) diversityScore += 26;
+            if (includeLowercase) diversityScore += 26;
+            if (includeNumbers) diversityScore += 10;
+            if (includeSpecialChars) diversityScore += 26; 
+
+            //Checks for uniqueness, will deduct points from strength if repeated characters are generated
+            int repeatedCharScore = password.Length - password.Distinct().Count(); 
+            //Multiplies the strength based on the variety of character types generated
+            int diversityBonus = diversityScore == 0 ? 0 : (password.Length - repeatedCharScore) * 2; 
+
+            int strength = lengthScore + diversityBonus - repeatedCharScore;
+
+            return strength;
+        }
+
+        //Function for updating the label under the strengthMeter
+        private void UpdatePasswordStrengthLabel(int strength)
+        {
+            if (strength < 33)
+            {
+                lblPasswordStrength.Text = "Weak";
+                lblPasswordStrength.ForeColor = Color.Red;
+            }
+            else if (strength < 66)
+            {
+                lblPasswordStrength.Text = "Average";
+                lblPasswordStrength.ForeColor = Color.Orange;
+            }
+            else
+            {
+                lblPasswordStrength.Text = "Strong";
+                lblPasswordStrength.ForeColor = Color.Green;
+            }
+        }
 
         public string GeneratePassword(int length, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
@@ -87,7 +155,7 @@ namespace PassGen
                 MessageBox.Show(message_no);
             }
 
-            
+
         }
     }
 }
