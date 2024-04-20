@@ -108,6 +108,7 @@ namespace PassGen
             const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
             const string numberChars = "0123456789";
             const string specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+            const string ambiguousChars = "il1Lo0O";
 
             StringBuilder password = new StringBuilder();
             Random random = new Random();
@@ -123,16 +124,50 @@ namespace PassGen
             if (includeSpecialChars)
                 charPool += specialChars;
 
+            // Remove ambiguous characters from the character pool
+            foreach (char ambiguousChar in ambiguousChars)
+            {
+                charPool = charPool.Replace(ambiguousChar.ToString(), "");
+            }
+
+            char lastChar = '\0';
+            int consecutiveCount = 0;
+
             // Generate the password
             for (int i = 0; i < length; i++)
             {
                 // Choose a random character from the pool
                 int index = random.Next(0, charPool.Length);
-                password.Append(charPool[index]);
+                char selectedChar = charPool[index];
+
+                // Check for consecutive characters
+                if (selectedChar == lastChar)
+                {
+                    consecutiveCount++;
+                    if (consecutiveCount > 2)
+                    {
+                        // Choose a different character if more than two consecutive characters
+                        while (selectedChar == lastChar)
+                        {
+                            index = random.Next(0, charPool.Length);
+                            selectedChar = charPool[index];
+                        }
+                        consecutiveCount = 0;
+                    }
+                }
+                else
+                {
+                    consecutiveCount = 0;
+                }
+
+                // Append selected character to the password
+                password.Append(selectedChar);
+                lastChar = selectedChar;
             }
 
             return password.ToString();
         }
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {

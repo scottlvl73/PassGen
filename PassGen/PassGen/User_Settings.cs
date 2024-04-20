@@ -43,6 +43,19 @@ namespace PassGen
             set => chkIncludeSpecialChars.Checked = value;
         }
 
+        // Properties for toggling new features
+        public bool ExcludeAmbiguousChars
+        {
+            get => chkExcludeAmbiguous.Checked;
+            set => chkExcludeAmbiguous.Checked = value;
+        }
+
+        public bool AvoidRepeatingChars
+        {
+            get => chkAvoidRepeatingChars.Checked;
+            set => chkAvoidRepeatingChars.Checked = value;
+        }
+
         public User_Settings()
         {
             InitializeComponent();

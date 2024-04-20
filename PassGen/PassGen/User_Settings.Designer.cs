@@ -37,6 +37,8 @@
             chkIncludeSpecialChars = new CheckBox();
             groupBox1 = new GroupBox();
             label1 = new Label();
+            chkExcludeAmbiguous = new CheckBox();
+            chkAvoidRepeatingChars = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)numericUpDownLength).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -53,7 +55,7 @@
             // 
             // numericUpDownLength
             // 
-            numericUpDownLength.Location = new Point(389, 164);
+            numericUpDownLength.Location = new Point(389, 205);
             numericUpDownLength.Name = "numericUpDownLength";
             numericUpDownLength.Size = new Size(120, 23);
             numericUpDownLength.TabIndex = 1;
@@ -100,13 +102,15 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(chkAvoidRepeatingChars);
+            groupBox1.Controls.Add(chkExcludeAmbiguous);
             groupBox1.Controls.Add(chkIncludeUppercase);
             groupBox1.Controls.Add(chkIncludeSpecialChars);
             groupBox1.Controls.Add(chkIncludeLowercase);
             groupBox1.Controls.Add(chkIncludeNumbers);
             groupBox1.Location = new Point(34, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(475, 120);
+            groupBox1.Size = new Size(475, 187);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Select Character Set";
@@ -114,11 +118,31 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(34, 166);
+            label1.Location = new Point(34, 209);
             label1.Name = "label1";
             label1.Size = new Size(140, 15);
             label1.TabIndex = 7;
             label1.Text = "Adjust Password Length: ";
+            // 
+            // chkExcludeAmbiguous
+            // 
+            chkExcludeAmbiguous.AutoSize = true;
+            chkExcludeAmbiguous.Location = new Point(26, 144);
+            chkExcludeAmbiguous.Name = "chkExcludeAmbiguous";
+            chkExcludeAmbiguous.Size = new Size(191, 19);
+            chkExcludeAmbiguous.TabIndex = 6;
+            chkExcludeAmbiguous.Text = "Exclude Ambiguous Characters";
+            chkExcludeAmbiguous.UseVisualStyleBackColor = true;
+            // 
+            // chkAvoidRepeatingChars
+            // 
+            chkAvoidRepeatingChars.AutoSize = true;
+            chkAvoidRepeatingChars.Location = new Point(256, 144);
+            chkAvoidRepeatingChars.Name = "chkAvoidRepeatingChars";
+            chkAvoidRepeatingChars.Size = new Size(172, 19);
+            chkAvoidRepeatingChars.TabIndex = 7;
+            chkAvoidRepeatingChars.Text = "Avoid Repeating Characters";
+            chkAvoidRepeatingChars.UseVisualStyleBackColor = true;
             // 
             // User_Settings
             // 
@@ -150,5 +174,7 @@
         private CheckBox chkIncludeSpecialChars;
         private GroupBox groupBox1;
         private Label label1;
+        private CheckBox chkAvoidRepeatingChars;
+        private CheckBox chkExcludeAmbiguous;
     }
 }
