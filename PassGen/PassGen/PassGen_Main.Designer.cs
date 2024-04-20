@@ -41,7 +41,7 @@
             // 
             // btnGenerate
             // 
-            btnGenerate.Location = new Point(161, 221);
+            btnGenerate.Location = new Point(167, 218);
             btnGenerate.Name = "btnGenerate";
             btnGenerate.Size = new Size(92, 32);
             btnGenerate.TabIndex = 0;
@@ -54,6 +54,7 @@
             txtPassword.Location = new Point(84, 129);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "Password will appear here...";
+            txtPassword.ReadOnly = true;
             txtPassword.Size = new Size(253, 23);
             txtPassword.TabIndex = 1;
             txtPassword.TextAlign = HorizontalAlignment.Center;
@@ -93,11 +94,10 @@
             // lblPasswordStrength
             // 
             lblPasswordStrength.AutoSize = true;
-            lblPasswordStrength.Location = new Point(187, 186);
+            lblPasswordStrength.Location = new Point(196, 185);
             lblPasswordStrength.Name = "lblPasswordStrength";
-            lblPasswordStrength.Size = new Size(37, 15);
+            lblPasswordStrength.Size = new Size(0, 15);
             lblPasswordStrength.TabIndex = 3;
-            lblPasswordStrength.Text = "------";
             // 
             // PassGen_Main
             // 

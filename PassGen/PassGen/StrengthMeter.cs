@@ -22,6 +22,18 @@ namespace PassGen
         {
             base.OnPaint(e);
 
+
+            //Creates empty meter before filling
+            using (SolidBrush brush = new SolidBrush(Color.White))
+            {
+                e.Graphics.FillRectangle(brush, 0, 0, Width, Height);
+            }
+
+            using (Pen borderPen = new Pen(Color.Black, 1)) // You can adjust the color and thickness of the border
+            {
+                e.Graphics.DrawRectangle(borderPen, 0, 0, Width - 1, Height - 1);
+            }
+
             // Relates color to determined strength
             Color color;
             if (Strength < 33)

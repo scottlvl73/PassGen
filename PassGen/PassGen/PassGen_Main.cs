@@ -22,10 +22,10 @@ namespace PassGen
             strengthMeter = new StrengthMeter();
             // Used for adjusting the location of the custom drawn meter
             //Important for any UI changes
-            strengthMeter.Location = new Point(180, 265); 
+            strengthMeter.Location = new Point(160, 265);
             //Used for adjust the size of the custom drawn meter
             //Important for any UI changes
-            strengthMeter.Size = new Size(200, 20); 
+            strengthMeter.Size = new Size(200, 20);
             Controls.Add(strengthMeter);
 
             strengthMeter.BringToFront();
@@ -61,8 +61,8 @@ namespace PassGen
         //Algorithm for determining password strength
         private int CalculatePasswordStrength(string password, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
-           //Measures length
-            int lengthScore = password.Length * 4; 
+            //Measures length
+            int lengthScore = password.Length * 4;
 
             //Checks for a variety in character sets to determine strength
             //Uses uppercase, lowercase, numbers, and special character pools
@@ -70,12 +70,12 @@ namespace PassGen
             if (includeUppercase) diversityScore += 26;
             if (includeLowercase) diversityScore += 26;
             if (includeNumbers) diversityScore += 10;
-            if (includeSpecialChars) diversityScore += 26; 
+            if (includeSpecialChars) diversityScore += 26;
 
             //Checks for uniqueness, will deduct points from strength if repeated characters are generated
-            int repeatedCharScore = password.Length - password.Distinct().Count(); 
+            int repeatedCharScore = password.Length - password.Distinct().Count();
             //Multiplies the strength based on the variety of character types generated
-            int diversityBonus = diversityScore == 0 ? 0 : (password.Length - repeatedCharScore) * 2; 
+            int diversityBonus = diversityScore == 0 ? 0 : (password.Length - repeatedCharScore) * 2;
 
             int strength = lengthScore + diversityBonus - repeatedCharScore;
 
