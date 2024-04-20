@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PassGenv2UnitTest
-build_property.ProjectDir = C:\Users\baker\Source\Repos\PassGen\PassGen\PassGenv2UnitTest\
+build_property.ProjectDir = C:\Users\Karisma\source\repos\PassGen\PassGenv2UnitTest\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
