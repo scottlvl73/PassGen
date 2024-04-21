@@ -1,40 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj": {}
+    "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj": {
+    "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+        "projectUniqueName": "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
         "projectName": "PassGenv2UnitTest",
-        "projectPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
-        "packagesPath": "C:\\Users\\baker\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\obj\\",
+        "projectPath": "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+        "packagesPath": "C:\\Users\\Scott\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGenv2UnitTest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\baker\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Scott\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows"
+          "net6.0-windows7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj": {
-                "projectPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj"
+              "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGen\\PassGen.csproj": {
+                "projectPath": "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGen\\PassGen.csproj"
               }
             }
           }
@@ -72,8 +71,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -82,33 +80,32 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj": {
+    "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGen\\PassGen.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
+        "projectUniqueName": "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGen\\PassGen.csproj",
         "projectName": "PassGen",
-        "projectPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
-        "packagesPath": "C:\\Users\\baker\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\obj\\",
+        "projectPath": "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGen\\PassGen.csproj",
+        "packagesPath": "C:\\Users\\Scott\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Scott\\Source\\Repos\\PassGen75\\PassGen\\PassGen\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\baker\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Scott\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows"
+          "net6.0-windows7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -132,8 +129,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -145,7 +141,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

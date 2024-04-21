@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace PassGen
 {
@@ -183,19 +184,34 @@ namespace PassGen
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //Alerts the user that their password has been saved
+            //encrypt the password using Recrypt Class
+            byte[] key = new byte[16];
+            byte[] iv = new byte[16];
+
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(key);
+                rng.GetBytes(iv);
+
+            }
             string message = "Are you sure you want to save this password?";
             string title = "Save";
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                string message_save = "Your password has been saved!";
-                MessageBox.Show(message_save);
+                string passWord = txtPassword.Text;
+            byte[] encryptedPassword = Recrypt.Encrypt(passWord, key, iv);
+            string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
 
-                //Code for submitting the textbox data to the DB should go here
-                //Currently non-functional
-            }
+
+            string message_save = "Your password has been saved!\n \n" + passWord + "\n \n Your encrypted Password \n \n" + encryptedPasswordString + "\n \n Your AES Key \n \n" + Convert.ToBase64String(key) + "\n \n your Insertion Vector is \n \n" + Convert.ToBase64String(iv);
+            MessageBox.Show(message_save);
+            Clipboard.SetText(encryptedPasswordString + "\n" + Convert.ToBase64String(key) + "\n" + Convert.ToBase64String(iv));
+
+            //Code for submitting the textbox data to the DB should go here
+            //Currently non-functional
+        }
             else
             {
                 string message_no = "Your password has not been saved.";
