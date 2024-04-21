@@ -7,11 +7,13 @@ namespace PassGen
     public partial class PassGen_Main : Form
     {
         private StrengthMeter strengthMeter;
+        private Random random = new Random();
 
         const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
         const string numberChars = "0123456789";
         const string specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+        const string ambiguousChars = "il1Lo0O";
 
         public User_Settings settingsForm;
 
@@ -41,6 +43,13 @@ namespace PassGen
                 bool includeNumbers = settingsForm.IncludeNumbers;
                 bool includeSpecialChars = settingsForm.IncludeSpecialChars;
 
+                // Check if password length is at least 1
+                if (length < 1)
+                {
+                    MessageBox.Show("Please select a minimum length of 1 for your password.", "Invalid Password Length", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Exit the method without further execution
+                }
+
                 // Calls the GeneratePassword method to generate a password based on specified parameters
                 string password = GeneratePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
 
@@ -55,6 +64,7 @@ namespace PassGen
 
                 // Updates the password strength label when the UpdatePasswordStrengthLabel function is called
                 UpdatePasswordStrengthLabel(strength);
+
             }
         }
 
@@ -104,11 +114,6 @@ namespace PassGen
 
         public string GeneratePassword(int length, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
-            const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-            const string numberChars = "0123456789";
-            const string specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
-            const string ambiguousChars = "il1Lo0O";
 
             StringBuilder password = new StringBuilder();
             Random random = new Random();
@@ -123,6 +128,13 @@ namespace PassGen
                 charPool += numberChars;
             if (includeSpecialChars)
                 charPool += specialChars;
+
+            // Check if the length of charPool is less than the desired password length
+            if (charPool.Length < length)
+            {
+                MessageBox.Show("The selected character set is too small to generate a password of the desired length.", "Invalid Character Set", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return ""; // Return an empty string to indicate failure
+            }
 
             // Remove ambiguous characters from the character pool
             foreach (char ambiguousChar in ambiguousChars)
