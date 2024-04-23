@@ -25,7 +25,7 @@ namespace PassGen
             strengthMeter = new StrengthMeter();
             // Used for adjusting the location of the custom drawn meter
             //Important for any UI changes
-            strengthMeter.Location = new Point(160, 265);
+            strengthMeter.Location = new Point(186, 365);
             //Used for adjust the size of the custom drawn meter
             //Important for any UI changes
             strengthMeter.Size = new Size(200, 20);
@@ -98,17 +98,17 @@ namespace PassGen
         {
             if (strength < 33)
             {
-                lblPasswordStrength.Text = "Weak";
+                lblPasswordStrength.Text = "WEAK";
                 lblPasswordStrength.ForeColor = Color.Red;
             }
             else if (strength < 66)
             {
-                lblPasswordStrength.Text = "Average";
+                lblPasswordStrength.Text = "AVERAGE";
                 lblPasswordStrength.ForeColor = Color.Orange;
             }
             else
             {
-                lblPasswordStrength.Text = "Strong";
+                lblPasswordStrength.Text = "STRONG";
                 lblPasswordStrength.ForeColor = Color.Green;
             }
         }
