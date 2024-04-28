@@ -36,9 +36,9 @@
             chkIncludeNumbers = new CheckBox();
             chkIncludeSpecialChars = new CheckBox();
             groupBox1 = new GroupBox();
-            label1 = new Label();
-            chkExcludeAmbiguous = new CheckBox();
             chkAvoidRepeatingChars = new CheckBox();
+            chkExcludeAmbiguous = new CheckBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDownLength).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -56,9 +56,12 @@
             // numericUpDownLength
             // 
             numericUpDownLength.Location = new Point(389, 205);
+            numericUpDownLength.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
+            numericUpDownLength.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             numericUpDownLength.Name = "numericUpDownLength";
             numericUpDownLength.Size = new Size(120, 23);
             numericUpDownLength.TabIndex = 1;
+            numericUpDownLength.Value = new decimal(new int[] { 8, 0, 0, 0 });
             // 
             // chkIncludeUppercase
             // 
@@ -115,14 +118,15 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Select Character Set";
             // 
-            // label1
+            // chkAvoidRepeatingChars
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(34, 209);
-            label1.Name = "label1";
-            label1.Size = new Size(140, 15);
-            label1.TabIndex = 7;
-            label1.Text = "Adjust Password Length: ";
+            chkAvoidRepeatingChars.AutoSize = true;
+            chkAvoidRepeatingChars.Location = new Point(256, 144);
+            chkAvoidRepeatingChars.Name = "chkAvoidRepeatingChars";
+            chkAvoidRepeatingChars.Size = new Size(172, 19);
+            chkAvoidRepeatingChars.TabIndex = 7;
+            chkAvoidRepeatingChars.Text = "Avoid Repeating Characters";
+            chkAvoidRepeatingChars.UseVisualStyleBackColor = true;
             // 
             // chkExcludeAmbiguous
             // 
@@ -134,15 +138,14 @@
             chkExcludeAmbiguous.Text = "Exclude Ambiguous Characters";
             chkExcludeAmbiguous.UseVisualStyleBackColor = true;
             // 
-            // chkAvoidRepeatingChars
+            // label1
             // 
-            chkAvoidRepeatingChars.AutoSize = true;
-            chkAvoidRepeatingChars.Location = new Point(256, 144);
-            chkAvoidRepeatingChars.Name = "chkAvoidRepeatingChars";
-            chkAvoidRepeatingChars.Size = new Size(172, 19);
-            chkAvoidRepeatingChars.TabIndex = 7;
-            chkAvoidRepeatingChars.Text = "Avoid Repeating Characters";
-            chkAvoidRepeatingChars.UseVisualStyleBackColor = true;
+            label1.AutoSize = true;
+            label1.Location = new Point(34, 209);
+            label1.Name = "label1";
+            label1.Size = new Size(140, 15);
+            label1.TabIndex = 7;
+            label1.Text = "Adjust Password Length: ";
             // 
             // User_Settings
             // 

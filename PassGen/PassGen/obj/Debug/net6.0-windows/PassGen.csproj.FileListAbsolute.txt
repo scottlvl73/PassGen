@@ -71,3 +71,4 @@ C:\Users\Scott\Source\Repos\PassGen75\PassGen\PassGen\obj\Debug\net6.0-windows\P
 C:\Users\Scott\Source\Repos\PassGen75\PassGen\PassGen\obj\Debug\net6.0-windows\ref\PassGen.dll
 C:\Users\Scott\Source\Repos\PassGen75\PassGen\PassGen\obj\Debug\net6.0-windows\PassGen.pdb
 C:\Users\Scott\Source\Repos\PassGen75\PassGen\PassGen\obj\Debug\net6.0-windows\PassGen.genruntimeconfig.cache
+C:\Users\baker\Source\Repos\PassGen\PassGen\PassGen\obj\Debug\net6.0-windows\PassGen.csproj.AssemblyReference.cache

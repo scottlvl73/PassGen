@@ -10,6 +10,7 @@ namespace PassGen
         private StrengthMeter strengthMeter;
         private Random random = new Random();
 
+  
         const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
         const string numberChars = "0123456789";
@@ -47,7 +48,7 @@ namespace PassGen
                 // Check if password length is at least 1
                 if (length < 1)
                 {
-                    MessageBox.Show("Please select a minimum length of 1 for your password.", "Invalid Password Length", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please select a minimum length of 8 for your password.", "Invalid Password Length", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return; // Exit the method without further execution
                 }
 
@@ -84,6 +85,7 @@ namespace PassGen
             if (includeSpecialChars) diversityScore += 26;
 
             //Checks for uniqueness, will deduct points from strength if repeated characters are generated
+            //New functionality added to help reduce the possibility of this impacting generated passwords
             int repeatedCharScore = password.Length - password.Distinct().Count();
             //Multiplies the strength based on the variety of character types generated
             int diversityBonus = diversityScore == 0 ? 0 : (password.Length - repeatedCharScore) * 2;
@@ -94,6 +96,7 @@ namespace PassGen
         }
 
         //Function for updating the label under the strengthMeter
+        //Sets the a color corresponding to the strength of the generated password
         private void UpdatePasswordStrengthLabel(int strength)
         {
             if (strength < 33)
@@ -112,7 +115,8 @@ namespace PassGen
                 lblPasswordStrength.ForeColor = Color.Green;
             }
         }
-
+        //Function for generating a password
+        //Runs upon clicking the 'Apply' button on the Settings form
         public string GeneratePassword(int length, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
 
@@ -181,7 +185,7 @@ namespace PassGen
             return password.ToString();
         }
 
-
+        //Method for encrypting the password before it is sent to the database for storage
         private void btnSave_Click(object sender, EventArgs e)
         {
             //encrypt the password using Recrypt Class
@@ -194,6 +198,7 @@ namespace PassGen
                 rng.GetBytes(iv);
 
             }
+            //Allows the user to either save the password to the database or return the generation screen
             string message = "Are you sure you want to save this password?";
             string title = "Save";
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
@@ -201,13 +206,13 @@ namespace PassGen
             if (result == DialogResult.Yes)
             {
                 string passWord = txtPassword.Text;
-            byte[] encryptedPassword = Recrypt.Encrypt(passWord, key, iv);
-            string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+                byte[] encryptedPassword = Recrypt.Encrypt(passWord, key, iv);
+                string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
 
 
-            string message_save = "Your password has been saved!\n \n" + passWord + "\n \n Your encrypted Password \n \n" + encryptedPasswordString + "\n \n Your AES Key \n \n" + Convert.ToBase64String(key) + "\n \n your Insertion Vector is \n \n" + Convert.ToBase64String(iv);
-            MessageBox.Show(message_save);
-            Clipboard.SetText(encryptedPasswordString + "\n" + Convert.ToBase64String(key) + "\n" + Convert.ToBase64String(iv));
+                string message_save = "Your password has been saved!\n \n" + passWord + "\n \n Your encrypted Password \n \n" + encryptedPasswordString + "\n \n Your AES Key \n \n" + Convert.ToBase64String(key) + "\n \n your Insertion Vector is \n \n" + Convert.ToBase64String(iv);
+                MessageBox.Show(message_save);
+                Clipboard.SetText(encryptedPasswordString + "\n" + Convert.ToBase64String(key) + "\n" + Convert.ToBase64String(iv));
 
             //Code for submitting the textbox data to the DB should go here
             //Currently non-functional
