@@ -41,9 +41,11 @@
             // 
             // btnGenerate
             // 
-            btnGenerate.Location = new Point(167, 218);
+            btnGenerate.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnGenerate.Location = new Point(195, 266);
+            btnGenerate.Margin = new Padding(3, 4, 3, 4);
             btnGenerate.Name = "btnGenerate";
-            btnGenerate.Size = new Size(92, 32);
+            btnGenerate.Size = new Size(105, 43);
             btnGenerate.TabIndex = 0;
             btnGenerate.Text = "Generate";
             btnGenerate.UseVisualStyleBackColor = true;
@@ -51,62 +53,74 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(84, 129);
+            txtPassword.BackColor = SystemColors.ButtonHighlight;
+            txtPassword.Font = new Font("Calibri", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            txtPassword.Location = new Point(96, 162);
+            txtPassword.Margin = new Padding(3, 4, 3, 4);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "Password will appear here...";
             txtPassword.ReadOnly = true;
-            txtPassword.Size = new Size(253, 23);
+            txtPassword.Size = new Size(289, 28);
             txtPassword.TabIndex = 1;
             txtPassword.TextAlign = HorizontalAlignment.Center;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(321, 305);
+            btnSave.BackColor = Color.Transparent;
+            btnSave.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSave.Location = new Point(195, 328);
+            btnSave.Margin = new Padding(3, 4, 3, 4);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(92, 32);
+            btnSave.Size = new Size(105, 43);
             btnSave.TabIndex = 2;
             btnSave.Text = "Save";
-            btnSave.UseVisualStyleBackColor = true;
+            btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.passgenlogotransparent1;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(-1, -1);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(503, 99);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.Size = new Size(575, 262);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
             // mainPanel
             // 
-            mainPanel.BorderStyle = BorderStyle.FixedSingle;
             mainPanel.Controls.Add(lblPasswordStrength);
             mainPanel.Controls.Add(txtPassword);
             mainPanel.Controls.Add(btnGenerate);
             mainPanel.Controls.Add(btnSave);
-            mainPanel.Location = new Point(45, 104);
+            mainPanel.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            mainPanel.Location = new Point(46, 139);
+            mainPanel.Margin = new Padding(3, 4, 3, 4);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(418, 342);
+            mainPanel.Size = new Size(497, 455);
             mainPanel.TabIndex = 4;
             // 
             // lblPasswordStrength
             // 
             lblPasswordStrength.AutoSize = true;
-            lblPasswordStrength.Location = new Point(196, 185);
+            lblPasswordStrength.Location = new Point(224, 247);
             lblPasswordStrength.Name = "lblPasswordStrength";
-            lblPasswordStrength.Size = new Size(0, 15);
+            lblPasswordStrength.Size = new Size(0, 18);
             lblPasswordStrength.TabIndex = 3;
             // 
             // PassGen_Main
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(498, 478);
+            BackColor = Color.Silver;
+            ClientSize = new Size(569, 512);
             Controls.Add(pictureBox1);
             Controls.Add(mainPanel);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "PassGen_Main";
             Text = "PassGen";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
