@@ -45,30 +45,33 @@
             // 
             // btnApply
             // 
-            btnApply.Location = new Point(434, 265);
+            btnApply.BackColor = SystemColors.InactiveCaption;
+            btnApply.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnApply.Location = new Point(496, 353);
+            btnApply.Margin = new Padding(3, 4, 3, 4);
             btnApply.Name = "btnApply";
-            btnApply.Size = new Size(75, 23);
+            btnApply.Size = new Size(86, 31);
             btnApply.TabIndex = 0;
             btnApply.Text = "Apply";
-            btnApply.UseVisualStyleBackColor = true;
+            btnApply.UseVisualStyleBackColor = false;
             btnApply.Click += btnApply_Click;
             // 
             // numericUpDownLength
             // 
-            numericUpDownLength.Location = new Point(389, 205);
-            numericUpDownLength.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
-            numericUpDownLength.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
+            numericUpDownLength.Font = new Font("Calibri", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            numericUpDownLength.Location = new Point(494, 273);
+            numericUpDownLength.Margin = new Padding(3, 5, 3, 5);
             numericUpDownLength.Name = "numericUpDownLength";
-            numericUpDownLength.Size = new Size(120, 23);
+            numericUpDownLength.Size = new Size(88, 28);
             numericUpDownLength.TabIndex = 1;
-            numericUpDownLength.Value = new decimal(new int[] { 8, 0, 0, 0 });
             // 
             // chkIncludeUppercase
             // 
             chkIncludeUppercase.AutoSize = true;
-            chkIncludeUppercase.Location = new Point(26, 31);
+            chkIncludeUppercase.Location = new Point(30, 41);
+            chkIncludeUppercase.Margin = new Padding(3, 4, 3, 4);
             chkIncludeUppercase.Name = "chkIncludeUppercase";
-            chkIncludeUppercase.Size = new Size(156, 19);
+            chkIncludeUppercase.Size = new Size(182, 22);
             chkIncludeUppercase.TabIndex = 2;
             chkIncludeUppercase.Text = "Uppercase Letters (A - Z)";
             chkIncludeUppercase.UseVisualStyleBackColor = true;
@@ -76,9 +79,10 @@
             // chkIncludeLowercase
             // 
             chkIncludeLowercase.AutoSize = true;
-            chkIncludeLowercase.Location = new Point(256, 31);
+            chkIncludeLowercase.Location = new Point(293, 41);
+            chkIncludeLowercase.Margin = new Padding(3, 4, 3, 4);
             chkIncludeLowercase.Name = "chkIncludeLowercase";
-            chkIncludeLowercase.Size = new Size(152, 19);
+            chkIncludeLowercase.Size = new Size(178, 22);
             chkIncludeLowercase.TabIndex = 3;
             chkIncludeLowercase.Text = "Lowercase Letters (a - z)";
             chkIncludeLowercase.UseVisualStyleBackColor = true;
@@ -86,9 +90,10 @@
             // chkIncludeNumbers
             // 
             chkIncludeNumbers.AutoSize = true;
-            chkIncludeNumbers.Location = new Point(26, 85);
+            chkIncludeNumbers.Location = new Point(30, 113);
+            chkIncludeNumbers.Margin = new Padding(3, 4, 3, 4);
             chkIncludeNumbers.Name = "chkIncludeNumbers";
-            chkIncludeNumbers.Size = new Size(109, 19);
+            chkIncludeNumbers.Size = new Size(125, 22);
             chkIncludeNumbers.TabIndex = 4;
             chkIncludeNumbers.Text = "Numbers (0 - 9)";
             chkIncludeNumbers.UseVisualStyleBackColor = true;
@@ -96,11 +101,12 @@
             // chkIncludeSpecialChars
             // 
             chkIncludeSpecialChars.AutoSize = true;
-            chkIncludeSpecialChars.Location = new Point(256, 85);
+            chkIncludeSpecialChars.Location = new Point(293, 113);
+            chkIncludeSpecialChars.Margin = new Padding(3, 4, 3, 4);
             chkIncludeSpecialChars.Name = "chkIncludeSpecialChars";
-            chkIncludeSpecialChars.Size = new Size(183, 19);
+            chkIncludeSpecialChars.Size = new Size(226, 22);
             chkIncludeSpecialChars.TabIndex = 5;
-            chkIncludeSpecialChars.Text = "Special Symbols (#, @, $, etc.)";
+            chkIncludeSpecialChars.Text = "Special Characters (#, @, $, etc.)";
             chkIncludeSpecialChars.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -111,9 +117,12 @@
             groupBox1.Controls.Add(chkIncludeSpecialChars);
             groupBox1.Controls.Add(chkIncludeLowercase);
             groupBox1.Controls.Add(chkIncludeNumbers);
-            groupBox1.Location = new Point(34, 12);
+            groupBox1.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            groupBox1.Location = new Point(39, 16);
+            groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(475, 187);
+            groupBox1.Padding = new Padding(3, 4, 3, 4);
+            groupBox1.Size = new Size(543, 249);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Select Character Set";
@@ -121,9 +130,10 @@
             // chkAvoidRepeatingChars
             // 
             chkAvoidRepeatingChars.AutoSize = true;
-            chkAvoidRepeatingChars.Location = new Point(256, 144);
+            chkAvoidRepeatingChars.Location = new Point(293, 192);
+            chkAvoidRepeatingChars.Margin = new Padding(3, 4, 3, 4);
             chkAvoidRepeatingChars.Name = "chkAvoidRepeatingChars";
-            chkAvoidRepeatingChars.Size = new Size(172, 19);
+            chkAvoidRepeatingChars.Size = new Size(200, 22);
             chkAvoidRepeatingChars.TabIndex = 7;
             chkAvoidRepeatingChars.Text = "Avoid Repeating Characters";
             chkAvoidRepeatingChars.UseVisualStyleBackColor = true;
@@ -131,9 +141,10 @@
             // chkExcludeAmbiguous
             // 
             chkExcludeAmbiguous.AutoSize = true;
-            chkExcludeAmbiguous.Location = new Point(26, 144);
+            chkExcludeAmbiguous.Location = new Point(30, 192);
+            chkExcludeAmbiguous.Margin = new Padding(3, 4, 3, 4);
             chkExcludeAmbiguous.Name = "chkExcludeAmbiguous";
-            chkExcludeAmbiguous.Size = new Size(191, 19);
+            chkExcludeAmbiguous.Size = new Size(219, 22);
             chkExcludeAmbiguous.TabIndex = 6;
             chkExcludeAmbiguous.Text = "Exclude Ambiguous Characters";
             chkExcludeAmbiguous.UseVisualStyleBackColor = true;
@@ -141,23 +152,26 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(34, 209);
+            label1.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(326, 277);
             label1.Name = "label1";
-            label1.Size = new Size(140, 15);
+            label1.Size = new Size(162, 18);
             label1.TabIndex = 7;
             label1.Text = "Adjust Password Length: ";
             // 
             // User_Settings
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(545, 300);
+            BackColor = Color.Silver;
+            ClientSize = new Size(623, 400);
             Controls.Add(label1);
             Controls.Add(groupBox1);
             Controls.Add(numericUpDownLength);
             Controls.Add(btnApply);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             Name = "User_Settings";
             Text = "Password Settings";
             ((System.ComponentModel.ISupportInitialize)numericUpDownLength).EndInit();
