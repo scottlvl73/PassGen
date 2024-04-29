@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace PassGen
 {
+    /// <summary>
+    /// The StrengthMeter class uses System.Drawing to redraw a new strength bar everytime a password is generated and determine a color by the "strength" of the password generated.
+    /// </summary>
     public class StrengthMeter : Control
     {
         private int _strength;

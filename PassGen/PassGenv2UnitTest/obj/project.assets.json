@@ -2322,23 +2322,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\baker\\.nuget\\packages\\": {},
+    "C:\\Users\\Scott\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+      "projectUniqueName": "F:\\Repo\\visualstudiorepo\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
       "projectName": "PassGenv2UnitTest",
-      "projectPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
-      "packagesPath": "C:\\Users\\baker\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\obj\\",
+      "projectPath": "F:\\Repo\\visualstudiorepo\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+      "packagesPath": "C:\\Users\\Scott\\.nuget\\packages\\",
+      "outputPath": "F:\\Repo\\visualstudiorepo\\PassGen\\PassGenv2UnitTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\baker\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Scott\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2354,8 +2354,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj": {
-              "projectPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj"
+            "F:\\Repo\\visualstudiorepo\\PassGen\\PassGen\\PassGen.csproj": {
+              "projectPath": "F:\\Repo\\visualstudiorepo\\PassGen\\PassGen\\PassGen.csproj"
             }
           }
         }
@@ -2364,6 +2364,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2403,7 +2408,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
       }
     }
   }
