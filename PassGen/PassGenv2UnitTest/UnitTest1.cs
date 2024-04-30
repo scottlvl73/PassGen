@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using PassGen;
 using System.Security.Cryptography;
+using System.Drawing;
 
 namespace PassGenv2UnitTest
 {
@@ -142,10 +143,10 @@ namespace PassGenv2UnitTest
             bool includeSpecialChars = true;
             byte[] key = new byte[16];
             byte[] iv = new byte[16];
-           
+
 
             //Act
-            PassGen_Main passGenMain = new PassGen_Main();
+            PassGen_Main passGenMain = new();
             string password = passGenMain.GeneratePassword(length, includeLowercase, includeUppercase, includeNumbers, includeSpecialChars);
            
             //encrypt the password using Recrypt Class
@@ -178,6 +179,56 @@ namespace PassGenv2UnitTest
                 Console.WriteLine("Test Failed");
             }
 
+        }
+        [TestMethod]
+        public void StrengthMeter_Test()
+        {
+            //Arrange
+            int length = 3;
+            bool includeLowercase = false;
+            bool includeUppercase = false;
+            bool includeNumbers = false;
+            bool includeSpecialChars = false;
+            int strength;
+            PassGen_Main passMain = new();
+            int averageStrength = 0;
+
+            //Act
+            for (int j = length; length < 15; length++)
+            {
+                for (int i = 0; i < 15; i++)
+                {
+                    //Only lowercase strength
+
+                    string password = passMain.GeneratePassword(length, true, includeUppercase, includeNumbers, includeSpecialChars);
+                    strength = passMain.CalculatePasswordStrength(password, true, includeUppercase, includeNumbers, includeSpecialChars);
+                    Console.WriteLine(strength);
+                    averageStrength += strength;
+
+                }
+
+                for (int i = 0; i < 15; i++)
+                {
+                    //only uppercase strength
+
+                    string password = passMain.GeneratePassword(length, includeLowercase, true, includeNumbers, includeSpecialChars);
+                    strength = passMain.CalculatePasswordStrength(password, includeLowercase, true, includeNumbers, includeSpecialChars);
+                    Console.WriteLine(strength);
+                    averageStrength += strength;
+                }
+
+                for (int i = 0; i < 15; i++)
+                {
+                    //only special characters strength
+
+                    string password = passMain.GeneratePassword(length, includeLowercase, includeUppercase, includeNumbers, true);
+                    strength = passMain.CalculatePasswordStrength(password, includeLowercase, includeUppercase, includeNumbers, true);
+                    Console.WriteLine(strength);
+                    averageStrength += strength;
+                }
+
+            }
+            Console.WriteLine("The average strength of the test is " + (averageStrength/540));
         }
     }
 }

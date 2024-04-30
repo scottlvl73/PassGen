@@ -77,7 +77,7 @@ namespace PassGen
         /// <param name="includeNumbers">whether the user decided to include numerals</param>
         /// <param name="includeSpecialChars">whether the user decided to include special characters</param>
         /// <returns>the strength of the password</returns>
-        private int CalculatePasswordStrength(string password, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
+        public int CalculatePasswordStrength(string password, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
             //Measures length
             int lengthScore = password.Length * 4;

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PassGenv2UnitTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+581a30394d1f2560f7cee6335373544dd2451574")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3a7990b70f674c9b122c52d7dc8a75c93a9586a")]
 [assembly: System.Reflection.AssemblyProductAttribute("PassGenv2UnitTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PassGenv2UnitTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

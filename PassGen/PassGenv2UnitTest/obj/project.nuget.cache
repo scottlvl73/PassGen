@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TVbL+sdN5l9iYhxQJTNt7ed7VMPsa0wKuWqLCw4S5oKwCYecTepU6Nmy0YL3NnLnpW+vKInTRTKMNxpboXMZBg==",
+  "dgSpecHash": "v+d6Q1EWXBqgMoPW+X1/2tygCbKFbPJENsj2T77WPZ+10kyydaD1AJdZpt8U1B0axmx75/6SuDeVuwAWUkErKg==",
   "success": true,
-  "projectFilePath": "F:\\Repo\\visualstudiorepo\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+  "projectFilePath": "F:\\Repo\\visualstudiorepo\\PassGen2\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Scott\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\Scott\\.nuget\\packages\\microsoft.codecoverage\\17.5.0\\microsoft.codecoverage.17.5.0.nupkg.sha512",
