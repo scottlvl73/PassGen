@@ -25,7 +25,7 @@ namespace PassGen
             strengthMeter = new StrengthMeter();
             // Used for adjusting the location of the custom drawn meter
             //Important for any UI changes
-            strengthMeter.Location = new Point(186, 365);
+            strengthMeter.Location = new Point(155, 295);
             //Used for adjust the size of the custom drawn meter
             //Important for any UI changes
             strengthMeter.Size = new Size(200, 20);
@@ -68,8 +68,15 @@ namespace PassGen
 
             }
         }
-
-        //Algorithm for determining password strength
+        /// <summary>
+        /// Algorithm for determining password strength through the various controls provided to the user
+        /// </summary>
+        /// <param name="password">this is the password generated length</param>
+        /// <param name="includeUppercase">whether the user decided to include upper case letters</param>
+        /// <param name="includeLowercase">whether the user decided to include lowercase letters</param>
+        /// <param name="includeNumbers">whether the user decided to include numerals</param>
+        /// <param name="includeSpecialChars">whether the user decided to include special characters</param>
+        /// <returns>the strength of the password</returns>
         private int CalculatePasswordStrength(string password, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
             //Measures length
@@ -112,7 +119,15 @@ namespace PassGen
                 lblPasswordStrength.ForeColor = Color.Green;
             }
         }
-
+        /// <summary>
+        /// The GeneratePassword method checks the whether the checkboxs were turned on for all user controls and then generates a password with the user enabled parameters.
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="includeUppercase">whether the user decided to include upper case letters</param>
+        /// <param name="includeLowercase">whether the user decided to include lowercase letters</param>
+        /// <param name="includeNumbers">whether the user decided to include numerals</param>
+        /// <param name="includeSpecialChars">whether the user decided to include special characters</param>
+        /// /// <returns></returns>
         public string GeneratePassword(int length, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
 

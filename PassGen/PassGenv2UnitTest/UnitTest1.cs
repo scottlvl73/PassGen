@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using PassGen;
+using System.Security.Cryptography;
 
 namespace PassGenv2UnitTest
 {
@@ -126,7 +127,57 @@ namespace PassGenv2UnitTest
                 Console.WriteLine($"Password length: {length}, Time taken: {stopwatch.ElapsedMilliseconds} milliseconds");
             }
         }
+    }
+    [TestClass]
+    public class UnitTest2
+    {
+        [TestMethod]
+        public void Recrypt_Test()
+            {
+            //Arrange
+            int length = 8;
+            bool includeLowercase = true;
+            bool includeUppercase = true;
+            bool includeNumbers = true;
+            bool includeSpecialChars = true;
+            byte[] key = new byte[16];
+            byte[] iv = new byte[16];
+           
 
+            //Act
+            PassGen_Main passGenMain = new PassGen_Main();
+            string password = passGenMain.GeneratePassword(length, includeLowercase, includeUppercase, includeNumbers, includeSpecialChars);
+           
+            //encrypt the password using Recrypt Class
 
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(key);
+                rng.GetBytes(iv);
+
+            }
+
+            byte[] encryptedPassword = Recrypt.Encrypt(password, key, iv);
+            string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+
+            Console.WriteLine("The original password is " + password);
+            Console.WriteLine(encryptedPasswordString);
+
+            //Assert
+            //Password is decipherable
+
+            string simpleText = Recrypt.Decrypt(encryptedPassword, key, iv);
+            Console.WriteLine(simpleText);
+
+            if (simpleText == password)
+            {
+                Console.WriteLine("The passwords match");
+            }
+            else
+            {
+                Console.WriteLine("Test Failed");
+            }
+
+        }
     }
 }
