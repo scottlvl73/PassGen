@@ -26,7 +26,7 @@ namespace PassGen
             // Used for adjusting the location of the custom drawn meter
             //Important for any UI changes
             strengthMeter.Location = new Point(155, 295);
-            //Used for adjust the size of the custom drawn meter
+            //Used for adjusting the size of the custom drawn meter
             //Important for any UI changes
             strengthMeter.Size = new Size(200, 20);
             Controls.Add(strengthMeter);
@@ -148,7 +148,7 @@ namespace PassGen
             // Check if the length of charPool is less than the desired password length
             if (charPool.Length < length)
             {
-                MessageBox.Show("The selected character set is too small to generate a password of the desired length.", "Invalid Character Set", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("You must select at least one character set.", "Invalid Character Set", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return ""; // Return an empty string to indicate failure
             }
 
