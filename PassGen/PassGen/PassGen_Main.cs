@@ -2,6 +2,8 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using System.Data.SQLite;
+using System.Data;
 
 namespace PassGen
 {
@@ -66,8 +68,19 @@ namespace PassGen
                 // Updates the password strength label when the UpdatePasswordStrengthLabel function is called
                 UpdatePasswordStrengthLabel(strength);
 
+                //Resets strengthMeter when textbox is cleared
+                txtPassword.TextChanged += TxtPassword_TextChanged;
+
             }
         }
+
+        private void TxtPassword_TextChanged(object sender, EventArgs e)
+        {
+            // Clears stregnth meter when password is cleared from textbox
+            strengthMeter.Strength = 0;
+            lblPasswordStrength.Text = ""; 
+        }
+
         /// <summary>
         /// Algorithm for determining password strength through the various controls provided to the user
         /// </summary>
@@ -209,24 +222,63 @@ namespace PassGen
                 rng.GetBytes(iv);
 
             }
+            string passWord = txtPassword.Text;
+            byte[] encryptedPassword = Recrypt.Encrypt(passWord, key, iv);
+            string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+
+            // Show confirmation dialog
             string message = "Are you sure you want to save this password?";
             string title = "Save";
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Question);
+
             if (result == DialogResult.Yes)
             {
-                string passWord = txtPassword.Text;
-            byte[] encryptedPassword = Recrypt.Encrypt(passWord, key, iv);
-            string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+                // Added SQLite packages to the project
+                //Connection string for DB
+                string connectionString = "Data Source=myDatabase.db;Version=3;";
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
 
+                    // Creates a table to house the saved passwords if one does not already exist
+                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT)";
+                    using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
 
-            string message_save = "Your password has been saved!\n \n" + passWord + "\n \n Your encrypted Password \n \n" + encryptedPasswordString + "\n \n Your AES Key \n \n" + Convert.ToBase64String(key) + "\n \n your Insertion Vector is \n \n" + Convert.ToBase64String(iv);
-            MessageBox.Show(message_save);
-            Clipboard.SetText(encryptedPasswordString + "\n" + Convert.ToBase64String(key) + "\n" + Convert.ToBase64String(iv));
+                    // Places the encrypted password into the DB
+                    string insertQuery = "INSERT INTO Passwords (EncryptedPassword, AESKey, IV) VALUES (@encryptedPassword, @aesKey, @iv)";
+                    using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@encryptedPassword", encryptedPasswordString);
+                        command.Parameters.AddWithValue("@aesKey", Convert.ToBase64String(key));
+                        command.Parameters.AddWithValue("@iv", Convert.ToBase64String(iv));
+                        command.ExecuteNonQuery();
+                    }
+                }
 
-            //Code for submitting the textbox data to the DB should go here
-            //Currently non-functional
-        }
+                //Success Confirmation
+                string message_save = $"Your password has been saved!\n\n" +
+                $"Password: {passWord}\n\n" +
+                $"Encrypted Password: {encryptedPasswordString}\n\n" +
+                $"AES Key: {Convert.ToBase64String(key)}\n\n" +
+                $"IV: {Convert.ToBase64String(iv)}";
+
+                MessageBox.Show(message_save);
+
+                string clipboardText = $"{encryptedPasswordString}\n" +
+                    $"{Convert.ToBase64String(key)}\n" +
+                    $"{Convert.ToBase64String(iv)}";
+
+                Clipboard.SetText(clipboardText);
+
+                // Clear password textbox
+                txtPassword.Text = "";
+
+              
+            }
             else
             {
                 string message_no = "Your password has not been saved.";
@@ -234,6 +286,70 @@ namespace PassGen
             }
 
 
+        }
+
+        private void btnViewPasswords_Click(object sender, EventArgs e)
+        {
+            string connectionString = "Data Source=myDatabase.db;Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT EncryptedPassword, AESKey, IV FROM Passwords";
+                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        StringBuilder message = new StringBuilder("Passwords:\n\n");
+                        while (reader.Read())
+                        {
+                            string encryptedPassword = reader["EncryptedPassword"].ToString();
+                            string aesKeyString = reader["AESKey"].ToString();
+                            string ivString = reader["IV"].ToString();
+
+                            byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
+                            byte[] aesKey = Convert.FromBase64String(aesKeyString);
+                            byte[] iv = Convert.FromBase64String(ivString);
+
+                            // Decrypt the password
+                            string decryptedPassword = Recrypt.Decrypt(encryptedPasswordBytes, aesKey, iv);
+
+                            message.Append("Encrypted Password: ").Append(encryptedPassword).Append("\n");
+                            message.Append("Decrypted Password: ").Append(decryptedPassword).Append("\n\n");
+                        }
+                        MessageBox.Show(message.ToString());
+
+
+                    }
+                }
+            }
+        }
+
+        private void btnClearPasswords_Click(object sender, EventArgs e)
+        {
+            // Confirmation dialog to clear database of saved passwords
+            string message = "Are you sure you want to clear all saved passwords?";
+            string title = "Clear Passwords";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Question);
+            //Clears DB
+            if (result == DialogResult.Yes)
+            {
+                string connectionString = "Data Source=myDatabase.db;Version=3;";
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Clear all records from the Passwords table
+                    string clearQuery = "DELETE FROM Passwords";
+                    using (SQLiteCommand command = new SQLiteCommand(clearQuery, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+                //Confims that all passwords have been cleared
+                MessageBox.Show("All saved passwords have been cleared.", "Passwords Cleared", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

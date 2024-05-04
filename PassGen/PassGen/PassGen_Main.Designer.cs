@@ -34,6 +34,8 @@
             btnSave = new Button();
             pictureBox1 = new PictureBox();
             mainPanel = new Panel();
+            btnClearPasswords = new Button();
+            btnViewPasswords = new Button();
             lblPasswordStrength = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             mainPanel.SuspendLayout();
@@ -42,7 +44,7 @@
             // btnGenerate
             // 
             btnGenerate.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnGenerate.Location = new Point(171, 200);
+            btnGenerate.Location = new Point(123, 205);
             btnGenerate.Name = "btnGenerate";
             btnGenerate.Size = new Size(92, 32);
             btnGenerate.TabIndex = 0;
@@ -66,7 +68,7 @@
             // 
             btnSave.BackColor = Color.Transparent;
             btnSave.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnSave.Location = new Point(171, 246);
+            btnSave.Location = new Point(221, 205);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(92, 32);
             btnSave.TabIndex = 2;
@@ -86,6 +88,8 @@
             // 
             // mainPanel
             // 
+            mainPanel.Controls.Add(btnClearPasswords);
+            mainPanel.Controls.Add(btnViewPasswords);
             mainPanel.Controls.Add(lblPasswordStrength);
             mainPanel.Controls.Add(txtPassword);
             mainPanel.Controls.Add(btnGenerate);
@@ -95,6 +99,28 @@
             mainPanel.Name = "mainPanel";
             mainPanel.Size = new Size(497, 455);
             mainPanel.TabIndex = 4;
+            // 
+            // btnClearPasswords
+            // 
+            btnClearPasswords.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnClearPasswords.Location = new Point(286, 278);
+            btnClearPasswords.Name = "btnClearPasswords";
+            btnClearPasswords.Size = new Size(165, 21);
+            btnClearPasswords.TabIndex = 5;
+            btnClearPasswords.Text = "Clear DB";
+            btnClearPasswords.UseVisualStyleBackColor = true;
+            btnClearPasswords.Click += btnClearPasswords_Click;
+            // 
+            // btnViewPasswords
+            // 
+            btnViewPasswords.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnViewPasswords.Location = new Point(166, 239);
+            btnViewPasswords.Name = "btnViewPasswords";
+            btnViewPasswords.Size = new Size(92, 32);
+            btnViewPasswords.TabIndex = 4;
+            btnViewPasswords.Text = "Passwords";
+            btnViewPasswords.UseVisualStyleBackColor = true;
+            btnViewPasswords.Click += btnViewPasswords_Click;
             // 
             // lblPasswordStrength
             // 
@@ -133,5 +159,7 @@
         private PictureBox pictureBox1;
         private Panel mainPanel;
         private Label lblPasswordStrength;
+        private Button btnViewPasswords;
+        private Button btnClearPasswords;
     }
 }
