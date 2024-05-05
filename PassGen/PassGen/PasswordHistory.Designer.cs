@@ -31,6 +31,7 @@
             savedPasswordsListBox = new ListBox();
             passwordHistoryCopyBtn = new Button();
             passwordHistoryDeleteBtn = new Button();
+            btnDetails = new Button();
             SuspendLayout();
             // 
             // savedPasswordsListBox
@@ -62,12 +63,23 @@
             passwordHistoryDeleteBtn.UseVisualStyleBackColor = true;
             passwordHistoryDeleteBtn.Click += passwordHistoryDeleteBtn_Click;
             // 
+            // btnDetails
+            // 
+            btnDetails.Location = new Point(116, 390);
+            btnDetails.Name = "btnDetails";
+            btnDetails.Size = new Size(75, 23);
+            btnDetails.TabIndex = 3;
+            btnDetails.Text = "Details";
+            btnDetails.UseVisualStyleBackColor = true;
+            btnDetails.Click += btnDetails_Click;
+            // 
             // PasswordHistory
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(395, 450);
+            Controls.Add(btnDetails);
             Controls.Add(passwordHistoryDeleteBtn);
             Controls.Add(passwordHistoryCopyBtn);
             Controls.Add(savedPasswordsListBox);
@@ -83,5 +95,6 @@
         private ListBox savedPasswordsListBox;
         private Button passwordHistoryCopyBtn;
         private Button passwordHistoryDeleteBtn;
+        private Button btnDetails;
     }
 }

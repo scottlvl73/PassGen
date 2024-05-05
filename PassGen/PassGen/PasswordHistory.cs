@@ -49,7 +49,7 @@ namespace PassGen
 
                             string decryptedPassword = Recrypt.Decrypt(encryptedPasswordBytes, aesKey, iv);
 
-                            savedPasswordsListBox.Items.Add(new PasswordItem(id, decryptedPassword));
+                            savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword));
                         }
                     }
                 }
@@ -109,17 +109,44 @@ namespace PassGen
         public class PasswordItem
         {
             public int ID { get; }
+            public string EncryptedPassword { get; }
+            public string AESKey { get; }
+            public string IV { get; }
             public string DecryptedPassword { get; }
 
-            public PasswordItem(int id, string decryptedPassword)
+            public PasswordItem(int id, string encryptedPassword, string aesKey, string iv, string decryptedPassword)
             {
                 ID = id;
+                EncryptedPassword = encryptedPassword;
+                AESKey = aesKey;
+                IV = iv;
                 DecryptedPassword = decryptedPassword;
             }
 
             public override string ToString()
             {
                 return DecryptedPassword;
+            }
+        }
+        //Displays additional information about the selected password
+        //Includes the ID, Encrypted and Decrypted versions, the AES key, and the IV
+        private void btnDetails_Click(object sender, EventArgs e)
+        {
+            if (savedPasswordsListBox.SelectedItem != null)
+            {
+                PasswordItem selectedPassword = (PasswordItem)savedPasswordsListBox.SelectedItem;
+
+                string message = $"ID: {selectedPassword.ID}\n" +
+                                 $"Encrypted Password: {selectedPassword.EncryptedPassword}\n" +
+                                 $"Decrypted Password: {selectedPassword.DecryptedPassword}\n" +
+                                 $"AES Key: {selectedPassword.AESKey}\n" +
+                                 $"IV: {selectedPassword.IV}";
+
+                MessageBox.Show(message, "Password Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Please select a password to view details.", "No Password Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

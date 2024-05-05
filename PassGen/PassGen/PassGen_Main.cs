@@ -260,11 +260,7 @@ namespace PassGen
                 }
 
                 // Success Confirmation
-                string message_save = $"Your password has been saved!\n\n" +
-                $"Password: {passWord}\n\n" +
-                $"Encrypted Password: {encryptedPasswordString}\n\n" +
-                $"AES Key: {Convert.ToBase64String(key)}\n\n" +
-                $"IV: {Convert.ToBase64String(iv)}";
+                string message_save = $"Your password has been saved!\n\n";
 
                 MessageBox.Show(message_save);
 
