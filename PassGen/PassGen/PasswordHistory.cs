@@ -24,23 +24,21 @@ namespace PassGen
 
         private void PopulatePasswordHistory()
         {
-            // Connect to the database
             string connectionString = "Data Source=myDatabase.db;Version=3;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-                // Retrieve saved passwords from the local database
-                string selectQuery = "SELECT EncryptedPassword, AESKey, IV FROM Passwords";
+                string selectQuery = "SELECT ID, EncryptedPassword, AESKey, IV FROM Passwords";
                 using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                 {
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        // Clear existing items in the listbox
                         savedPasswordsListBox.Items.Clear();
 
                         while (reader.Read())
                         {
+                            int id = Convert.ToInt32(reader["ID"]);
                             string encryptedPassword = reader["EncryptedPassword"].ToString();
                             string aesKeyString = reader["AESKey"].ToString();
                             string ivString = reader["IV"].ToString();
@@ -49,11 +47,9 @@ namespace PassGen
                             byte[] aesKey = Convert.FromBase64String(aesKeyString);
                             byte[] iv = Convert.FromBase64String(ivString);
 
-                            // Decrypt the password
                             string decryptedPassword = Recrypt.Decrypt(encryptedPasswordBytes, aesKey, iv);
 
-                            // Add decrypted password to the listbox
-                            savedPasswordsListBox.Items.Add(decryptedPassword);
+                            savedPasswordsListBox.Items.Add(new PasswordItem(id, decryptedPassword));
                         }
                     }
                 }
@@ -75,31 +71,26 @@ namespace PassGen
 
         private void passwordHistoryDeleteBtn_Click(object sender, EventArgs e)
         {
-            // Check if a password is selected
             if (savedPasswordsListBox.SelectedItem != null)
             {
-                // Display a confirmation dialog box
                 string confirmationMessage = "Are you sure you want to delete this password? This action cannot be undone and the password will be permanently lost.";
                 string confirmationTitle = "Confirm Deletion";
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = MessageBox.Show(confirmationMessage, confirmationTitle, buttons, MessageBoxIcon.Warning);
 
-                // If the user confirms deletion, proceed with deletion
                 if (result == DialogResult.Yes)
                 {
-                    // Connect to the database
                     string connectionString = "Data Source=myDatabase.db;Version=3;";
                     using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                     {
                         connection.Open();
 
-                        string selectedPassword = savedPasswordsListBox.SelectedItem.ToString();
+                        PasswordItem selectedPassword = (PasswordItem)savedPasswordsListBox.SelectedItem;
 
-                        // Delete the password from the database
-                        string clearQuery = "DELETE FROM Passwords WHERE EncryptedPassword = @encryptedPassword";
+                        string clearQuery = "DELETE FROM Passwords WHERE ID = @id";
                         using (SQLiteCommand command = new SQLiteCommand(clearQuery, connection))
                         {
-                            command.Parameters.AddWithValue("@encryptedPassword", selectedPassword);
+                            command.Parameters.AddWithValue("@id", selectedPassword.ID);
                             command.ExecuteNonQuery();
                         }
                     }
@@ -111,6 +102,24 @@ namespace PassGen
             else
             {
                 MessageBox.Show("Please select a password to delete.", "No Password Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        //Class that holds the ID for the DB & the encrypted password
+        //Allows for the modified query to only delete selected passwords from the table
+        public class PasswordItem
+        {
+            public int ID { get; }
+            public string DecryptedPassword { get; }
+
+            public PasswordItem(int id, string decryptedPassword)
+            {
+                ID = id;
+                DecryptedPassword = decryptedPassword;
+            }
+
+            public override string ToString()
+            {
+                return DecryptedPassword;
             }
         }
     }

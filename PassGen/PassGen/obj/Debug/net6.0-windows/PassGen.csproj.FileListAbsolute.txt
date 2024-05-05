@@ -163,3 +163,4 @@ C:\Users\Karisma\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\obj\Debug\net6.
 C:\Users\Karisma\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\obj\Debug\net6.0-windows\PassGen.genruntimeconfig.cache
 C:\Users\Karisma\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\obj\Debug\net6.0-windows\ref\PassGen.dll
 C:\Users\Karisma\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\obj\Debug\net6.0-windows\PassGen.PasswordHistory.resources
+C:\Users\baker\Source\Repos\PassGen\PassGen\PassGen\obj\Debug\net6.0-windows\PassGen.PasswordHistory.resources
