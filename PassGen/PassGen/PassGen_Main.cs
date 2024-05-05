@@ -78,7 +78,7 @@ namespace PassGen
         {
             // Clears stregnth meter when password is cleared from textbox
             strengthMeter.Strength = 0;
-            lblPasswordStrength.Text = ""; 
+            lblPasswordStrength.Text = "";
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace PassGen
                 // Clear password textbox
                 txtPassword.Text = "";
 
-              
+
             }
             else
             {
@@ -297,31 +297,6 @@ namespace PassGen
             passwordHistoryForm.Show();
         }
 
-        private void btnClearPasswords_Click(object sender, EventArgs e)
-        {
-            // Confirmation dialog to clear database of saved passwords
-            string message = "Are you sure you want to clear all saved passwords?";
-            string title = "Clear Passwords";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Question);
-            // Clears DB
-            if (result == DialogResult.Yes)
-            {
-                string connectionString = "Data Source=myDatabase.db;Version=3;";
-                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-                {
-                    connection.Open();
 
-                    // Clear all records from the Passwords table
-                    string clearQuery = "DELETE FROM Passwords";
-                    using (SQLiteCommand command = new SQLiteCommand(clearQuery, connection))
-                    {
-                        command.ExecuteNonQuery();
-                    }
-                }
-                // Confirms that all passwords have been cleared
-                MessageBox.Show("All saved passwords have been cleared.", "Passwords Cleared", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
     }
 }
