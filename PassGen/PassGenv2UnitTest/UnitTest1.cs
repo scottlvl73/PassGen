@@ -5,9 +5,16 @@ using System.Diagnostics;
 using PassGen;
 using System.Security.Cryptography;
 using System.Drawing;
+using System.Data.SQLite;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.DataCollection;
+using System.Text;
+using System.CodeDom.Compiler;
 
 namespace PassGenv2UnitTest
 {
+
+
+
     [TestClass]
     public class UnitTest1
     {
@@ -134,7 +141,7 @@ namespace PassGenv2UnitTest
     {
         [TestMethod]
         public void Recrypt_Test()
-            {
+        {
             //Arrange
             int length = 8;
             bool includeLowercase = true;
@@ -148,7 +155,7 @@ namespace PassGenv2UnitTest
             //Act
             PassGen_Main passGenMain = new();
             string password = passGenMain.GeneratePassword(length, includeLowercase, includeUppercase, includeNumbers, includeSpecialChars);
-           
+
             //encrypt the password using Recrypt Class
 
             using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
@@ -228,7 +235,208 @@ namespace PassGenv2UnitTest
                 }
 
             }
-            Console.WriteLine("The average strength of the test is " + (averageStrength/540));
+            Console.WriteLine("The average strength of the test is " + (averageStrength / 540));
+        }
+
+
+    }
+    [TestClass]
+    public class Sprint3Tests
+    {
+        [TestMethod]
+        public void TestDBCreate()
+        {
+            //Arrange
+            string connectionstring = "Data Source=myDatabase.db;Version=3;";
+
+            //Act
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionstring))
+            {
+                connection.Open();
+
+
+
+                string checkIfExists = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT)";
+                using (SQLiteCommand command = new SQLiteCommand(checkIfExists, connection))
+                {
+
+                    var temp = command.ExecuteScalar();
+
+                    //Assert
+                    Assert.IsNull(temp);
+                    Debug.WriteLine(temp);
+                }
+
+
+            }
+
+
+        }
+
+        [TestMethod]
+        public void btnSave_Test()
+        {
+            //Arrange
+            string sender = "";
+            System.EventArgs e = new();
+            PassGen_Main passMain = new();
+            byte[] key = new byte[16];
+            byte[] iv = new byte[16];
+            string passWord = passMain.GeneratePassword(15, true, true, true, true);
+
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(key);
+                rng.GetBytes(iv);
+
+            }
+
+            //Act
+            passMain.btnSave_Click(sender, e);
+
+
+            //Assert
+            Assert.IsNotNull(e);
+        }
+
+        [TestMethod]
+        public void UpdateStrength_Test()
+        {
+            //Arrange
+            PassGen_Main passMain = new();
+            int strengthTest = 0;
+
+            //Act
+            while (strengthTest < 100)
+            {
+                strengthTest++;
+                passMain.UpdatePasswordStrengthLabel(strengthTest);
+                //Assert
+                Debug.WriteLine("Strength is " + strengthTest);
+            }
+
+        }
+
+        [TestMethod]
+        public void UserSettings_Test()
+        {
+
+            //Arrange
+            PassGen_Main passMain = new();
+            User_Settings userSettings = new User_Settings();
+            string sender = "";
+            System.EventArgs e = new();
+            userSettings.ExcludeAmbiguousChars = true;
+            userSettings.IncludeSpecialChars = true;
+            userSettings.IncludeNumbers = true;
+            userSettings.IncludeLowercase = true;
+            userSettings.IncludeUppercase = true;
+            userSettings.AvoidRepeatingChars = true;
+            userSettings.PasswordLength = 15;
+
+            //Act
+            userSettings.btnApply_Click(sender, e);
+
+            string password = passMain.GeneratePassword(userSettings.PasswordLength, userSettings.IncludeUppercase, userSettings.IncludeLowercase, userSettings.IncludeNumbers, userSettings.IncludeSpecialChars);
+
+
+            //Assert
+            Assert.IsNotNull(password);
+            Debug.WriteLine(password);
+
+        }
+        [TestMethod]
+        public void btnGenerate_Test()
+        {
+            //Arrange
+            string sender = "";
+            System.EventArgs e = new();
+            PassGen_Main passMain = new();
+            User_Settings user_Settings = new User_Settings();
+            user_Settings.ExcludeAmbiguousChars = true;
+            user_Settings.IncludeSpecialChars = true;
+            user_Settings.IncludeNumbers = true;
+            user_Settings.IncludeLowercase = true;
+            user_Settings.IncludeUppercase = true;
+            user_Settings.AvoidRepeatingChars = true;
+            user_Settings.PasswordLength = 15;
+            //Act
+           passMain.btnGenerate_Click(sender, e);
+            
+           
+            
+        }
+        [TestMethod]
+        public void ACreateTestDB()
+        {
+            //Create Test Database
+            string connectionString = "Data Source=myDatabaseTest.db;Version=3;";
+            using (SQLiteConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT)";
+                using (SQLiteCommand command = new(createTableQuery, connection))
+                {
+                    command.ExecuteNonQuery();
+
+                    Debug.WriteLine("Table Added");
+                }
+
+            }
+                        
+        }
+        [TestMethod]
+        public void DropTestDB()
+        {
+            //Drop Test DB
+            string connectionString = "Data Source=myDatabaseTest.db;Version=3;";
+            using (SQLiteConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string dropTable = "DROP TABLE Passwords";
+                using (SQLiteCommand drop = new(dropTable, connection))
+                {
+                    drop.ExecuteNonQuery();
+                    Debug.WriteLine("Table Dropped");
+                }
+            }
+        }
+        [TestMethod]
+        public void AddDummyDataToDB()
+        {
+            //Create Test Database
+            string passwordString = "P@ssW0rd";
+            string connectionString = "Data Source=myDatabaseTest.db;Version=3;";
+            using (SQLiteConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string insertInto = "INSERT INTO Passwords (EncryptedPassword) VALUES (@encryptedPassword)";
+                using (SQLiteCommand command = new(insertInto, connection))
+                {
+                    command.Parameters.AddWithValue("@encryptedPassword ", passwordString);
+
+                    Debug.WriteLine("Data Inserted" + passwordString);
+                }
+
+            }
+        }
+        
+        [TestMethod]
+        public void btnViewPasswordsTest()
+        {
+            //arrange
+            PassGen_Main passGen_Main = new PassGen_Main();
+            string sender = "";
+            System.EventArgs e = new();
+
+
+
+
+            //Act
+            passGen_Main.btnViewPasswords_Click(sender, e);
+            //Assert that it worked
+
         }
     }
 }

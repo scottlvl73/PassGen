@@ -61,7 +61,7 @@ namespace PassGen
             InitializeComponent();
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
+        public void btnApply_Click(object sender, EventArgs e)
         {
             //Applies the selected parameters to the algorithm and then generates the password
             DialogResult = DialogResult.OK;

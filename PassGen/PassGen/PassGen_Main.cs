@@ -36,7 +36,7 @@ namespace PassGen
             strengthMeter.BringToFront();
         }
 
-        private void btnGenerate_Click(object sender, EventArgs e)
+        public void btnGenerate_Click(object sender, EventArgs e)
         {
             if (settingsForm.ShowDialog() == DialogResult.OK)
             {
@@ -114,7 +114,7 @@ namespace PassGen
         }
 
         //Function for updating the label under the strengthMeter
-        private void UpdatePasswordStrengthLabel(int strength)
+        public void UpdatePasswordStrengthLabel(int strength)
         {
             if (strength < 33)
             {
@@ -140,7 +140,7 @@ namespace PassGen
         /// <param name="includeLowercase">whether the user decided to include lowercase letters</param>
         /// <param name="includeNumbers">whether the user decided to include numerals</param>
         /// <param name="includeSpecialChars">whether the user decided to include special characters</param>
-        /// /// <returns></returns>
+        /// /// <returns>Generated Password</returns>
         public string GeneratePassword(int length, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
 
@@ -210,7 +210,7 @@ namespace PassGen
         }
 
 
-        private void btnSave_Click(object sender, EventArgs e)
+        public void btnSave_Click(object sender, EventArgs e)
         {
             //encrypt the password using Recrypt Class
             byte[] key = new byte[16];
@@ -288,7 +288,7 @@ namespace PassGen
 
         }
 
-        private void btnViewPasswords_Click(object sender, EventArgs e)
+        public void btnViewPasswords_Click(object sender, EventArgs e)
         {
             string connectionString = "Data Source=myDatabase.db;Version=3;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -303,9 +303,9 @@ namespace PassGen
                         StringBuilder message = new StringBuilder("Passwords:\n\n");
                         while (reader.Read())
                         {
-                            string encryptedPassword = reader["EncryptedPassword"].ToString();
-                            string aesKeyString = reader["AESKey"].ToString();
-                            string ivString = reader["IV"].ToString();
+                            string? encryptedPassword = reader["EncryptedPassword"].ToString();
+                            string? aesKeyString = reader["AESKey"].ToString();
+                            string? ivString = reader["IV"].ToString();
 
                             byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
                             byte[] aesKey = Convert.FromBase64String(aesKeyString);
@@ -325,7 +325,7 @@ namespace PassGen
             }
         }
 
-        private void btnClearPasswords_Click(object sender, EventArgs e)
+        public void btnClearPasswords_Click(object sender, EventArgs e)
         {
             // Confirmation dialog to clear database of saved passwords
             string message = "Are you sure you want to clear all saved passwords?";

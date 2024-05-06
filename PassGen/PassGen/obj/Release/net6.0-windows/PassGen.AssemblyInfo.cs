@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PassGen")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec8bede3f131d25a0bb41ff5e44b48a9a360045b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PassGen")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PassGen")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,60 @@
+<Playlist Version="2.0">
+  <Rule Name="Includes" Match="Any">
+    <Rule Match="All">
+      <Property Name="Solution" />
+      <Rule Match="Any">
+        <Rule Match="All">
+          <Property Name="Project" Value="PassGenv2UnitTest" />
+          <Rule Match="Any">
+            <Rule Match="All">
+              <Property Name="Namespace" Value="PassGenv2UnitTest" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="Sprint3Tests" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="PassGenv2UnitTest.Sprint3Tests.CreateTestDB" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="CreateTestDB" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="PassGenv2UnitTest.Sprint3Tests.DropTestDB" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="DropTestDB" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="PassGenv2UnitTest.Sprint3Tests.AddDummyDataToDB" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="AddDummyDataToDB" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="PassGenv2UnitTest.Sprint3Tests.ACreateTestDB" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="ACreateTestDB" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="PassGenv2UnitTest.Sprint3Tests.btnClearPasswordsTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="btnClearPasswordsTest" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="PassGenv2UnitTest.Sprint3Tests.btnViewPasswordsTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="btnViewPasswordsTest" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+          </Rule>
+        </Rule>
+      </Rule>
+    </Rule>
+  </Rule>
+</Playlist>
