@@ -36,7 +36,7 @@ namespace PassGen
             strengthMeter.BringToFront();
         }
 
-        private void btnGenerate_Click(object sender, EventArgs e)
+        public void btnGenerate_Click(object sender, EventArgs e)
         {
             if (settingsForm.ShowDialog() == DialogResult.OK)
             {
@@ -114,7 +114,7 @@ namespace PassGen
         }
 
         // Function for updating the label under the strengthMeter
-        private void UpdatePasswordStrengthLabel(int strength)
+        public void UpdatePasswordStrengthLabel(int strength)
         {
             if (strength < 33)
             {
@@ -210,7 +210,7 @@ namespace PassGen
         }
 
 
-        private void btnSave_Click(object sender, EventArgs e)
+        public void btnSave_Click(object sender, EventArgs e)
         {
             // Encrypt the password using Recrypt Class
             byte[] key = new byte[16];
@@ -284,7 +284,7 @@ namespace PassGen
 
         }
 
-        private void btnViewPasswords_Click(object sender, EventArgs e)
+        public void btnViewPasswords_Click(object sender, EventArgs e)
         {
             // Create an instance of the PasswordHistory form
             PasswordHistory passwordHistoryForm = new PasswordHistory();
