@@ -26,17 +26,17 @@ namespace PassGen
             settingsForm = new User_Settings();
             strengthMeter = new StrengthMeter();
             // Used for adjusting the location of the custom drawn meter
-            //Important for any UI changes
+            // Important for any UI changes
             strengthMeter.Location = new Point(155, 295);
-            //Used for adjusting the size of the custom drawn meter
-            //Important for any UI changes
+            // Used for adjusting the size of the custom drawn meter
+            // Important for any UI changes
             strengthMeter.Size = new Size(200, 20);
             Controls.Add(strengthMeter);
 
             strengthMeter.BringToFront();
         }
 
-        public void btnGenerate_Click(object sender, EventArgs e)
+        private void btnGenerate_Click(object sender, EventArgs e)
         {
             if (settingsForm.ShowDialog() == DialogResult.OK)
             {
@@ -78,7 +78,7 @@ namespace PassGen
         {
             // Clears stregnth meter when password is cleared from textbox
             strengthMeter.Strength = 0;
-            lblPasswordStrength.Text = ""; 
+            lblPasswordStrength.Text = "";
         }
 
         /// <summary>
@@ -92,20 +92,20 @@ namespace PassGen
         /// <returns>the strength of the password</returns>
         public int CalculatePasswordStrength(string password, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
-            //Measures length
+            // Measures length
             int lengthScore = password.Length * 4;
 
-            //Checks for a variety in character sets to determine strength
-            //Uses uppercase, lowercase, numbers, and special character pools
+            // Checks for a variety in character sets to determine strength
+            // Uses uppercase, lowercase, numbers, and special character pools
             int diversityScore = 0;
             if (includeUppercase) diversityScore += 26;
             if (includeLowercase) diversityScore += 26;
             if (includeNumbers) diversityScore += 10;
             if (includeSpecialChars) diversityScore += 26;
 
-            //Checks for uniqueness, will deduct points from strength if repeated characters are generated
+            // Checks for uniqueness, will deduct points from strength if repeated characters are generated
             int repeatedCharScore = password.Length - password.Distinct().Count();
-            //Multiplies the strength based on the variety of character types generated
+            // Multiplies the strength based on the variety of character types generated
             int diversityBonus = diversityScore == 0 ? 0 : (password.Length - repeatedCharScore) * 2;
 
             int strength = lengthScore + diversityBonus - repeatedCharScore;
@@ -113,8 +113,8 @@ namespace PassGen
             return strength;
         }
 
-        //Function for updating the label under the strengthMeter
-        public void UpdatePasswordStrengthLabel(int strength)
+        // Function for updating the label under the strengthMeter
+        private void UpdatePasswordStrengthLabel(int strength)
         {
             if (strength < 33)
             {
@@ -140,7 +140,7 @@ namespace PassGen
         /// <param name="includeLowercase">whether the user decided to include lowercase letters</param>
         /// <param name="includeNumbers">whether the user decided to include numerals</param>
         /// <param name="includeSpecialChars">whether the user decided to include special characters</param>
-        /// /// <returns>Generated Password</returns>
+        /// /// <returns></returns>
         public string GeneratePassword(int length, bool includeUppercase, bool includeLowercase, bool includeNumbers, bool includeSpecialChars)
         {
 
@@ -210,9 +210,9 @@ namespace PassGen
         }
 
 
-        public void btnSave_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            //encrypt the password using Recrypt Class
+            // Encrypt the password using Recrypt Class
             byte[] key = new byte[16];
             byte[] iv = new byte[16];
 
@@ -235,7 +235,7 @@ namespace PassGen
             if (result == DialogResult.Yes)
             {
                 // Added SQLite packages to the project
-                //Connection string for DB
+                // Connection string for DB
                 string connectionString = "Data Source=myDatabase.db;Version=3;";
                 using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
@@ -259,12 +259,8 @@ namespace PassGen
                     }
                 }
 
-                //Success Confirmation
-                string message_save = $"Your password has been saved!\n\n" +
-                $"Password: {passWord}\n\n" +
-                $"Encrypted Password: {encryptedPasswordString}\n\n" +
-                $"AES Key: {Convert.ToBase64String(key)}\n\n" +
-                $"IV: {Convert.ToBase64String(iv)}";
+                // Success Confirmation
+                string message_save = $"Your password has been saved!\n\n";
 
                 MessageBox.Show(message_save);
 
@@ -277,7 +273,7 @@ namespace PassGen
                 // Clear password textbox
                 txtPassword.Text = "";
 
-              
+
             }
             else
             {
@@ -288,68 +284,15 @@ namespace PassGen
 
         }
 
-        public void btnViewPasswords_Click(object sender, EventArgs e)
+        private void btnViewPasswords_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=myDatabase.db;Version=3;";
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
+            // Create an instance of the PasswordHistory form
+            PasswordHistory passwordHistoryForm = new PasswordHistory();
 
-                string selectQuery = "SELECT EncryptedPassword, AESKey, IV FROM Passwords";
-                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
-                {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        StringBuilder message = new StringBuilder("Passwords:\n\n");
-                        while (reader.Read())
-                        {
-                            string? encryptedPassword = reader["EncryptedPassword"].ToString();
-                            string? aesKeyString = reader["AESKey"].ToString();
-                            string? ivString = reader["IV"].ToString();
-
-                            byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
-                            byte[] aesKey = Convert.FromBase64String(aesKeyString);
-                            byte[] iv = Convert.FromBase64String(ivString);
-
-                            // Decrypt the password
-                            string decryptedPassword = Recrypt.Decrypt(encryptedPasswordBytes, aesKey, iv);
-
-                            message.Append("Encrypted Password: ").Append(encryptedPassword).Append("\n");
-                            message.Append("Decrypted Password: ").Append(decryptedPassword).Append("\n\n");
-                        }
-                        MessageBox.Show(message.ToString());
-
-
-                    }
-                }
-            }
+            // Show the PasswordHistory form
+            passwordHistoryForm.Show();
         }
 
-        public void btnClearPasswords_Click(object sender, EventArgs e)
-        {
-            // Confirmation dialog to clear database of saved passwords
-            string message = "Are you sure you want to clear all saved passwords?";
-            string title = "Clear Passwords";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Question);
-            //Clears DB
-            if (result == DialogResult.Yes)
-            {
-                string connectionString = "Data Source=myDatabase.db;Version=3;";
-                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-                {
-                    connection.Open();
 
-                    // Clear all records from the Passwords table
-                    string clearQuery = "DELETE FROM Passwords";
-                    using (SQLiteCommand command = new SQLiteCommand(clearQuery, connection))
-                    {
-                        command.ExecuteNonQuery();
-                    }
-                }
-                //Confims that all passwords have been cleared
-                MessageBox.Show("All saved passwords have been cleared.", "Passwords Cleared", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
     }
 }

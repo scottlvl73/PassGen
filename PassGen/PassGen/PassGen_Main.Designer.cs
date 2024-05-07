@@ -34,7 +34,6 @@
             btnSave = new Button();
             pictureBox1 = new PictureBox();
             mainPanel = new Panel();
-            btnClearPasswords = new Button();
             btnViewPasswords = new Button();
             lblPasswordStrength = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -88,7 +87,6 @@
             // 
             // mainPanel
             // 
-            mainPanel.Controls.Add(btnClearPasswords);
             mainPanel.Controls.Add(btnViewPasswords);
             mainPanel.Controls.Add(lblPasswordStrength);
             mainPanel.Controls.Add(txtPassword);
@@ -100,21 +98,10 @@
             mainPanel.Size = new Size(497, 455);
             mainPanel.TabIndex = 4;
             // 
-            // btnClearPasswords
-            // 
-            btnClearPasswords.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnClearPasswords.Location = new Point(286, 278);
-            btnClearPasswords.Name = "btnClearPasswords";
-            btnClearPasswords.Size = new Size(165, 21);
-            btnClearPasswords.TabIndex = 5;
-            btnClearPasswords.Text = "Clear DB";
-            btnClearPasswords.UseVisualStyleBackColor = true;
-            btnClearPasswords.Click += btnClearPasswords_Click;
-            // 
             // btnViewPasswords
             // 
             btnViewPasswords.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnViewPasswords.Location = new Point(166, 239);
+            btnViewPasswords.Location = new Point(357, 262);
             btnViewPasswords.Name = "btnViewPasswords";
             btnViewPasswords.Size = new Size(92, 32);
             btnViewPasswords.TabIndex = 4;
@@ -160,6 +147,5 @@
         private Panel mainPanel;
         private Label lblPasswordStrength;
         private Button btnViewPasswords;
-        private Button btnClearPasswords;
     }
 }
