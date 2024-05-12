@@ -149,5 +149,31 @@ namespace PassGen
                 MessageBox.Show("Please select a password to view details.", "No Password Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void passwordHistoryExportBtn_Click(object sender, EventArgs e)
+        {
+            // Create a SaveFileDialog to choose the export file location
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv";
+            saveFileDialog.Title = "Export Passwords";
+            saveFileDialog.FileName = "passwords";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Open the selected file for writing
+                using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName))
+                {
+                    // Write each decrypted password from the list to the file
+                    foreach (PasswordItem passwordItem in savedPasswordsListBox.Items)
+                    {
+                        writer.WriteLine(passwordItem.DecryptedPassword);
+                    }
+                }
+
+                MessageBox.Show("Passwords exported successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
     }
 }

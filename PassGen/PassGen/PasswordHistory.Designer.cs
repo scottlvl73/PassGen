@@ -32,6 +32,7 @@
             passwordHistoryCopyBtn = new Button();
             passwordHistoryDeleteBtn = new Button();
             btnDetails = new Button();
+            passwordHistoryExportBtn = new Button();
             SuspendLayout();
             // 
             // savedPasswordsListBox
@@ -73,12 +74,23 @@
             btnDetails.UseVisualStyleBackColor = true;
             btnDetails.Click += btnDetails_Click;
             // 
+            // passwordHistoryExportBtn
+            // 
+            passwordHistoryExportBtn.Location = new Point(206, 390);
+            passwordHistoryExportBtn.Name = "passwordHistoryExportBtn";
+            passwordHistoryExportBtn.Size = new Size(75, 23);
+            passwordHistoryExportBtn.TabIndex = 4;
+            passwordHistoryExportBtn.Text = "Export";
+            passwordHistoryExportBtn.UseVisualStyleBackColor = true;
+            passwordHistoryExportBtn.Click += passwordHistoryExportBtn_Click;
+            // 
             // PasswordHistory
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(395, 450);
+            Controls.Add(passwordHistoryExportBtn);
             Controls.Add(btnDetails);
             Controls.Add(passwordHistoryDeleteBtn);
             Controls.Add(passwordHistoryCopyBtn);
@@ -96,5 +108,6 @@
         private Button passwordHistoryCopyBtn;
         private Button passwordHistoryDeleteBtn;
         private Button btnDetails;
+        private Button passwordHistoryExportBtn;
     }
 }

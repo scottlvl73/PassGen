@@ -1215,23 +1215,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Scott\\.nuget\\packages\\": {},
+    "C:\\Users\\Karisma\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
+      "projectUniqueName": "C:\\Users\\Karisma\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
       "projectName": "PassGen",
-      "projectPath": "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
-      "packagesPath": "C:\\Users\\Scott\\.nuget\\packages\\",
-      "outputPath": "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGen\\obj\\",
+      "projectPath": "C:\\Users\\Karisma\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
+      "packagesPath": "C:\\Users\\Karisma\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Karisma\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Scott\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Karisma\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
