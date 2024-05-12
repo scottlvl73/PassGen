@@ -13,9 +13,12 @@ namespace PassGen
 {
     public partial class PasswordHistory : Form
     {
+        private PassGen_Main passGenMainInstance;
         public PasswordHistory()
         {
             InitializeComponent();
+            
+            passGenMainInstance = new PassGen_Main();
 
             // Populate password history when the form is loaded
 
@@ -49,7 +52,10 @@ namespace PassGen
 
                             string decryptedPassword = Recrypt.Decrypt(encryptedPasswordBytes, aesKey, iv);
 
-                            savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword));
+                            // Calculate password strength
+                            int strength = passGenMainInstance.CalculatePasswordStrength(decryptedPassword, true, true, true, true);
+
+                            savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword, strength));
                         }
                     }
                 }
@@ -113,14 +119,16 @@ namespace PassGen
             public string AESKey { get; }
             public string IV { get; }
             public string DecryptedPassword { get; }
+            public int Strength { get; }
 
-            public PasswordItem(int id, string encryptedPassword, string aesKey, string iv, string decryptedPassword)
+            public PasswordItem(int id, string encryptedPassword, string aesKey, string iv, string decryptedPassword, int strength)
             {
                 ID = id;
                 EncryptedPassword = encryptedPassword;
                 AESKey = aesKey;
                 IV = iv;
                 DecryptedPassword = decryptedPassword;
+                Strength = strength;
             }
 
             public override string ToString()
@@ -129,24 +137,44 @@ namespace PassGen
             }
         }
         //Displays additional information about the selected password
-        //Includes the ID, Encrypted and Decrypted versions, the AES key, and the IV
+        //Includes the ID, Encrypted and Decrypted versions, the AES key, the IV, and strength score
         private void btnDetails_Click(object sender, EventArgs e)
         {
             if (savedPasswordsListBox.SelectedItem != null)
             {
                 PasswordItem selectedPassword = (PasswordItem)savedPasswordsListBox.SelectedItem;
 
+                // Calculate the strength label based on the strength score
+                string strengthLabel = GetStrengthLabel(selectedPassword.Strength);
+
                 string message = $"ID: {selectedPassword.ID}\n" +
                                  $"Encrypted Password: {selectedPassword.EncryptedPassword}\n" +
                                  $"Decrypted Password: {selectedPassword.DecryptedPassword}\n" +
                                  $"AES Key: {selectedPassword.AESKey}\n" +
-                                 $"IV: {selectedPassword.IV}";
+                                 $"IV: {selectedPassword.IV}\n" +
+                                 $"Strength: {selectedPassword.Strength} ({strengthLabel})";
 
                 MessageBox.Show(message, "Password Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 MessageBox.Show("Please select a password to view details.", "No Password Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private string GetStrengthLabel(int strength)
+        {
+            if (strength < 33)
+            {
+                return "Weak";
+            }
+            else if (strength < 66)
+            {
+                return "Average";
+            }
+            else
+            {
+                return "Strong";
             }
         }
 
