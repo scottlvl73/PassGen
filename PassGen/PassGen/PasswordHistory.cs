@@ -22,12 +22,18 @@ namespace PassGen
             PopulatePasswordHistory();
         }
 
-        private void PopulatePasswordHistory()
+        public void PopulatePasswordHistory()
         {
             string connectionString = "Data Source=myDatabase.db;Version=3;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
+
+                string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT)";
+                using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
 
                 string selectQuery = "SELECT ID, EncryptedPassword, AESKey, IV FROM Passwords";
                 using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
@@ -56,8 +62,9 @@ namespace PassGen
             }
         }
 
-        private void passwordHistoryCopyBtn_Click(object sender, EventArgs e)
+        public void passwordHistoryCopyBtn_Click(object sender, EventArgs e)
         {
+
             // Copy selected password to clipboard
             if (savedPasswordsListBox.SelectedItem != null)
             {
@@ -69,7 +76,7 @@ namespace PassGen
             }
         }
 
-        private void passwordHistoryDeleteBtn_Click(object sender, EventArgs e)
+        public void passwordHistoryDeleteBtn_Click(object sender, EventArgs e)
         {
             if (savedPasswordsListBox.SelectedItem != null)
             {
@@ -130,7 +137,7 @@ namespace PassGen
         }
         //Displays additional information about the selected password
         //Includes the ID, Encrypted and Decrypted versions, the AES key, and the IV
-        private void btnDetails_Click(object sender, EventArgs e)
+        public void btnDetails_Click(object sender, EventArgs e)
         {
             if (savedPasswordsListBox.SelectedItem != null)
             {
@@ -148,6 +155,11 @@ namespace PassGen
             {
                 MessageBox.Show("Please select a password to view details.", "No Password Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void savedPasswordsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

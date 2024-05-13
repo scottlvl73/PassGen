@@ -3510,11 +3510,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+      "projectUniqueName": "F:\\Repo\\visualstudiorepo\\PassGenSprint3\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
       "projectName": "PassGenv2UnitTest",
-      "projectPath": "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+      "projectPath": "F:\\Repo\\visualstudiorepo\\PassGenSprint3\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
       "packagesPath": "C:\\Users\\Scott\\.nuget\\packages\\",
-      "outputPath": "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGenv2UnitTest\\obj\\",
+      "outputPath": "F:\\Repo\\visualstudiorepo\\PassGenSprint3\\PassGen\\PassGenv2UnitTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3536,8 +3536,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj": {
-              "projectPath": "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj"
+            "F:\\Repo\\visualstudiorepo\\PassGenSprint3\\PassGen\\PassGen\\PassGen.csproj": {
+              "projectPath": "F:\\Repo\\visualstudiorepo\\PassGenSprint3\\PassGen\\PassGen\\PassGen.csproj"
             }
           }
         }

@@ -12,6 +12,7 @@ namespace PassGen
 {
     public partial class User_Settings : Form
     {
+        
         // Properties to access control values
         public int PasswordLength
         {

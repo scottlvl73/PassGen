@@ -2,6 +2,7 @@
 {
     partial class PasswordHistory
     {
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -42,6 +43,7 @@
             savedPasswordsListBox.Name = "savedPasswordsListBox";
             savedPasswordsListBox.Size = new Size(327, 319);
             savedPasswordsListBox.TabIndex = 0;
+            savedPasswordsListBox.SelectedIndexChanged += savedPasswordsListBox_SelectedIndexChanged;
             // 
             // passwordHistoryCopyBtn
             // 
@@ -92,9 +94,9 @@
 
         #endregion
 
-        private ListBox savedPasswordsListBox;
+        public ListBox savedPasswordsListBox;
         private Button passwordHistoryCopyBtn;
         private Button passwordHistoryDeleteBtn;
-        private Button btnDetails;
+        public Button btnDetails;
     }
 }

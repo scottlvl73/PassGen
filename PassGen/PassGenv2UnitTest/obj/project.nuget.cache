@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QWZgLDkg4r0Lxo3v/bn1KJ9MnPPAY0OXdGVObhWc81Jb0rwjnStfrtUl0e9BpCiZ4AB0O1ej12edfNPzCwIDIQ==",
+  "dgSpecHash": "Tk4Lr695lZ8Yv2ivZJiVU7vtBM9AS/YHb3duNIbNzoCk2Qc+stm/IkTdmFVSkSZ+7mlVNjAXTkxnGFm76Bj7Ng==",
   "success": true,
-  "projectFilePath": "F:\\Repo\\visualstudiorepo\\scottlvl73\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+  "projectFilePath": "F:\\Repo\\visualstudiorepo\\PassGenSprint3\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Scott\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\Scott\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

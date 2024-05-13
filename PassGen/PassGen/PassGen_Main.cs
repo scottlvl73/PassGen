@@ -9,6 +9,7 @@ namespace PassGen
 {
     public partial class PassGen_Main : Form
     {
+       
         private StrengthMeter strengthMeter;
         private Random random = new Random();
 
@@ -159,7 +160,7 @@ namespace PassGen
                 charPool += specialChars;
 
             // Check if the length of charPool is less than the desired password length
-            if (charPool.Length < length)
+            if (charPool.Length < 10)
             {
                 MessageBox.Show("You must select at least one character set.", "Invalid Character Set", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return ""; // Return an empty string to indicate failure
@@ -180,12 +181,13 @@ namespace PassGen
                 // Choose a random character from the pool
                 int index = random.Next(0, charPool.Length);
                 char selectedChar = charPool[index];
+                lastChar = charPool[index];
 
                 // Check for consecutive characters
                 if (selectedChar == lastChar)
                 {
                     consecutiveCount++;
-                    if (consecutiveCount > 2)
+                    if (consecutiveCount > 0)
                     {
                         // Choose a different character if more than two consecutive characters
                         while (selectedChar == lastChar)
@@ -264,11 +266,6 @@ namespace PassGen
 
                 MessageBox.Show(message_save);
 
-                string clipboardText = $"{encryptedPasswordString}\n" +
-                    $"{Convert.ToBase64String(key)}\n" +
-                    $"{Convert.ToBase64String(iv)}";
-
-                Clipboard.SetText(clipboardText);
 
                 // Clear password textbox
                 txtPassword.Text = "";

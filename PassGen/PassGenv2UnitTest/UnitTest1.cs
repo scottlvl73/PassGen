@@ -9,6 +9,10 @@ using System.Data.SQLite;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.DataCollection;
 using System.Text;
 using System.CodeDom.Compiler;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Dynamic;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Runtime.CompilerServices;
 
 namespace PassGenv2UnitTest
 {
@@ -275,9 +279,10 @@ namespace PassGenv2UnitTest
         }
 
         [TestMethod]
-        public void btnSave_Test()
+        public void btnSave_TestYes()
         {
             //Arrange
+           
             string sender = "";
             System.EventArgs e = new();
             PassGen_Main passMain = new();
@@ -297,8 +302,36 @@ namespace PassGenv2UnitTest
 
 
             //Assert
-            Assert.IsNotNull(e);
+            Assert.IsNotNull(passWord);
         }
+
+        [TestMethod]
+        public void btnSave_TestNo()
+        {
+            //Arrange
+
+            string sender = "";
+            System.EventArgs e = new();
+            PassGen_Main passMain = new();
+            byte[] key = new byte[16];
+            byte[] iv = new byte[16];
+            string passWord = passMain.GeneratePassword(15, true, true, true, true);
+
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(key);
+                rng.GetBytes(iv);
+
+            }
+
+            //Act
+            passMain.btnSave_Click(sender, e);
+
+
+            //Assert
+            Assert.IsNotNull(passWord);
+        }
+
 
         [TestMethod]
         public void UpdateStrength_Test()
@@ -367,6 +400,50 @@ namespace PassGenv2UnitTest
            
             
         }
+
+        [TestMethod]
+        public void btnGenerate_TestNoCharactersSelected()
+        {
+            // Arrange
+            PassGen_Main passGenMain = new PassGen_Main();
+            int length = 12;
+            bool includeUppercase = false;
+            bool includeLowercase = false;
+            bool includeNumbers = false;
+            bool includeSpecialChars = false;
+
+            // Act
+            string password = passGenMain.GeneratePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
+
+            // Assert
+            Assert.IsNotNull(password);
+           
+        }
+        
+        [TestMethod]
+        public void btnGenerate_TestCharPoolTooSmall()
+        {
+            // Arrange
+            PassGen_Main passGenMain = new PassGen_Main();
+            int length = 15;
+            
+
+            // Act
+            string password = passGenMain.GeneratePassword(length, false, false, true, false);
+
+            // Assert
+            Assert.IsNotNull(password);
+            Assert.AreEqual(length, password.Length);
+            Debug.WriteLine(password);
+
+
+        }
+            
+
+
+
+        
+
         [TestMethod]
         public void ACreateTestDB()
         {
@@ -375,7 +452,7 @@ namespace PassGenv2UnitTest
             using (SQLiteConnection connection = new(connectionString))
             {
                 connection.Open();
-                string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT)";
+                string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT)";
                 using (SQLiteCommand command = new(createTableQuery, connection))
                 {
                     command.ExecuteNonQuery();
@@ -405,21 +482,43 @@ namespace PassGenv2UnitTest
         [TestMethod]
         public void AddDummyDataToDB()
         {
-            //Create Test Database
-            string passwordString = "P@ssW0rd";
-            string connectionString = "Data Source=myDatabaseTest.db;Version=3;";
+            //Add data to test database
+            PassGen_Main passmain = new();
+            string passWord = passmain.GeneratePassword(15, true, true, true, true);
+            byte[] key = new byte[16];
+            byte[] iv = new byte[16];
+
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(key);
+                rng.GetBytes(iv);
+
+            }
+
+           byte[] encryptedPassword = Recrypt.Encrypt(passWord, key, iv);
+            string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+            
+            string connectionString = "Data Source=myDatabase.db;Version=3;";
             using (SQLiteConnection connection = new(connectionString))
             {
                 connection.Open();
-                string insertInto = "INSERT INTO Passwords (EncryptedPassword) VALUES (@encryptedPassword)";
+                string insertInto = "INSERT INTO Passwords (EncryptedPassword, AESKey, IV) VALUES (@encryptedPassword, @aesKey, @iv)";
                 using (SQLiteCommand command = new(insertInto, connection))
                 {
-                    command.Parameters.AddWithValue("@encryptedPassword ", passwordString);
+                    command.Parameters.AddWithValue("@encryptedPassword ", encryptedPasswordString);
+                    command.Parameters.AddWithValue("@aesKey", Convert.ToBase64String(key));
+                    command.Parameters.AddWithValue("@iv", Convert.ToBase64String(iv));
+                    
 
-                    Debug.WriteLine("Data Inserted" + passwordString);
+
+                    Debug.WriteLine("Data Inserted " + passWord);
                 }
 
             }
+
+
+
+
         }
         
         [TestMethod]
@@ -438,5 +537,121 @@ namespace PassGenv2UnitTest
             //Assert that it worked
 
         }
+
+        [TestMethod]
+        public void PasswordHistoryCopyBtn_onClickTest()
+        {
+
+            //Arrange
+            PassGen_Main passGen_main = new();
+            PasswordHistory passwordHistory = new();
+            string sender = "";
+            System.EventArgs e = new();
+            string passWord = "P@ssW0rd";
+
+            //Act
+            passGen_main.btnViewPasswords_Click(sender, e);
+            passwordHistory.PopulatePasswordHistory();
+            passwordHistory.savedPasswordsListBox.SelectedItem = passWord;
+            passwordHistory.passwordHistoryCopyBtn_Click(sender, e);
+
+
+
+
+            //Assert
+            Debug.WriteLine(passWord);
+            
+            Assert.IsNotNull(passwordHistory.savedPasswordsListBox);
+
+
+        }
+        //[DataRow]
+        //[DynamicData]
+        [TestMethod]
+        public void PasswordHistoryDeleteBtn_ClickYes()
+        {
+            string sender = "";
+            System.EventArgs e = new();
+            PassGen_Main passGen_main = new();
+            PasswordHistory passwordHistory = new();
+          
+            
+            
+            passwordHistory.PopulatePasswordHistory();
+            passGen_main.btnViewPasswords_Click(sender, e);
+            passwordHistory.savedPasswordsListBox.SelectedItem = passwordHistory.savedPasswordsListBox.Items[0];
+
+            passwordHistory.passwordHistoryDeleteBtn_Click(sender, e);
+
+
+        }
+        [TestMethod]
+        public void PasswordHistoryDeleteBtn_ClickNo()
+        {
+            string sender = "";
+            System.EventArgs e = new();
+            PassGen_Main passGen_main = new();
+            PasswordHistory passwordHistory = new();
+
+
+
+            passwordHistory.PopulatePasswordHistory();
+            passGen_main.btnViewPasswords_Click(sender, e);
+            passwordHistory.savedPasswordsListBox.SelectedItem = passwordHistory.savedPasswordsListBox.Items[0];
+
+            passwordHistory.passwordHistoryDeleteBtn_Click(sender, e);
+
+
+        }
+        [TestMethod]
+        public void PasswordHistoryDeleteBtn_ClickNull()
+        {
+            string sender = "";
+            System.EventArgs e = new();
+            PassGen_Main passGen_main = new();
+            PasswordHistory passwordHistory = new();
+
+
+
+            passwordHistory.PopulatePasswordHistory();
+            passGen_main.btnViewPasswords_Click(sender, e);
+            passwordHistory.savedPasswordsListBox.SelectedItem = null;
+
+            passwordHistory.passwordHistoryDeleteBtn_Click(sender, e);
+
+
+        }
+
+        [TestMethod]
+        public void btnDetails_ClickTest()
+        {
+            PassGen_Main passMain = new();
+            PasswordHistory passHis = new();
+            string sender = "";
+            EventArgs e = new();
+            
+          
+            passHis.PopulatePasswordHistory();
+            
+            passHis.savedPasswordsListBox.SelectedItem = passHis.savedPasswordsListBox.Items[0];
+            passHis.btnDetails_Click(sender, e);
+
+        }
+        [TestMethod]
+        public void btnDetails_ClickTest2()
+        {
+            PassGen_Main passMain = new();
+            PasswordHistory passHis = new();
+            string sender = "";
+            EventArgs e = new();
+
+
+            passHis.PopulatePasswordHistory();
+            
+            passHis.savedPasswordsListBox.SelectedItem = null;
+            passHis.btnDetails_Click(sender, e);
+
+        }
+
     }
 }
