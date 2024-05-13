@@ -19,6 +19,8 @@ namespace PassGen
         const string specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
         const string ambiguousChars = "il1Lo0O";
 
+        private int strength;
+
         public User_Settings settingsForm;
 
         public PassGen_Main()
@@ -61,7 +63,7 @@ namespace PassGen
                 txtPassword.Text = password;
 
                 // Calculate password strength
-                int strength = CalculatePasswordStrength(password, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
+                strength = CalculatePasswordStrength(password, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
 
                 // Updates the drawn strengthMeter every time the CalculatePasswordStrength function is called
                 strengthMeter.Strength = strength;
@@ -110,6 +112,8 @@ namespace PassGen
             int diversityBonus = diversityScore == 0 ? 0 : (password.Length - repeatedCharScore) * 2;
 
             int strength = lengthScore + diversityBonus - repeatedCharScore;
+
+            
 
             return strength;
         }
@@ -214,70 +218,88 @@ namespace PassGen
 
         public void btnSave_Click(object sender, EventArgs e)
         {
-            // Encrypt the password using Recrypt Class
-            byte[] key = new byte[16];
-            byte[] iv = new byte[16];
 
-            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            try
             {
-                rng.GetBytes(key);
-                rng.GetBytes(iv);
-
-            }
-            string passWord = txtPassword.Text;
-            byte[] encryptedPassword = Recrypt.Encrypt(passWord, key, iv);
-            string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
-
-            // Show confirmation dialog
-            string message = "Are you sure you want to save this password?";
-            string title = "Save";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                // Added SQLite packages to the project
-                // Connection string for DB
-                string connectionString = "Data Source=myDatabase.db;Version=3;";
-                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                if (string.IsNullOrWhiteSpace(txtPassword.Text))
                 {
-                    connection.Open();
-
-                    // Creates a table to house the saved passwords if one does not already exist
-                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT)";
-                    using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
-                    {
-                        command.ExecuteNonQuery();
-                    }
-
-                    // Places the encrypted password into the DB
-                    string insertQuery = "INSERT INTO Passwords (EncryptedPassword, AESKey, IV) VALUES (@encryptedPassword, @aesKey, @iv)";
-                    using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
-                    {
-                        command.Parameters.AddWithValue("@encryptedPassword", encryptedPasswordString);
-                        command.Parameters.AddWithValue("@aesKey", Convert.ToBase64String(key));
-                        command.Parameters.AddWithValue("@iv", Convert.ToBase64String(iv));
-                        command.ExecuteNonQuery();
-                    }
+                    MessageBox.Show("Please generate a password before saving.", "Empty Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                    
                 }
+                    // Encrypt the password using Recrypt Class
+                    byte[] key = new byte[16];
+                byte[] iv = new byte[16];
 
-                // Success Confirmation
-                string message_save = $"Your password has been saved!\n\n";
+                using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+                {
+                    rng.GetBytes(key);
+                    rng.GetBytes(iv);
 
-                MessageBox.Show(message_save);
+                }
+                string passWord = txtPassword.Text;
+                byte[] encryptedPassword = Recrypt.Encrypt(passWord, key, iv);
+                string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+
+                // Show confirmation dialog
+                string message = "Are you sure you want to save this password?";
+                string title = "Save";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Added SQLite packages to the project
+                    // Connection string for DB
+                    string connectionString = "Data Source=myDatabase.db;Version=3;";
+                    using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        // Creates a table to house the saved passwords if one does not already exist
+                        string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT, Strength INTEGER)";
+                        using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
+                        {
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Places the encrypted password into the DB
+                        string insertQuery = "INSERT INTO Passwords (EncryptedPassword, AESKey, IV, Strength) VALUES (@encryptedPassword, @aesKey, @iv, @strength)";
+                        using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@encryptedPassword", encryptedPasswordString);
+                            command.Parameters.AddWithValue("@aesKey", Convert.ToBase64String(key));
+                            command.Parameters.AddWithValue("@iv", Convert.ToBase64String(iv));
+                            command.Parameters.AddWithValue("@strength", strength);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Success Confirmation
+                    string message_save = $"Your password has been saved!\n\n";
+
+                    MessageBox.Show(message_save);
 
 
-                // Clear password textbox
-                txtPassword.Text = "";
+                    // Clear password textbox
+                    txtPassword.Text = "";
+                    Logger.Log("Password saved successfully.");
 
-
+                }
+                else
+                {
+                    string message_no = "Your password has not been saved.";
+                    MessageBox.Show(message_no);
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                string message_no = "Your password has not been saved.";
-                MessageBox.Show(message_no);
-            }
+                //Displays an error message if any errors occur while saving the password
+                MessageBox.Show($"There was an error while attempting to save your password: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                Logger.Log($"There was an error while attempting to save the password");
+            }
 
         }
 
