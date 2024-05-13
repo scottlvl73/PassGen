@@ -37,19 +37,21 @@
             // 
             // savedPasswordsListBox
             // 
+            savedPasswordsListBox.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
             savedPasswordsListBox.FormattingEnabled = true;
-            savedPasswordsListBox.ItemHeight = 15;
+            savedPasswordsListBox.ItemHeight = 18;
             savedPasswordsListBox.Location = new Point(35, 26);
             savedPasswordsListBox.Name = "savedPasswordsListBox";
-            savedPasswordsListBox.Size = new Size(327, 319);
+            savedPasswordsListBox.Size = new Size(327, 310);
             savedPasswordsListBox.TabIndex = 0;
             savedPasswordsListBox.SelectedIndexChanged += savedPasswordsListBox_SelectedIndexChanged;
             // 
             // passwordHistoryCopyBtn
             // 
+            passwordHistoryCopyBtn.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
             passwordHistoryCopyBtn.Location = new Point(35, 390);
             passwordHistoryCopyBtn.Name = "passwordHistoryCopyBtn";
-            passwordHistoryCopyBtn.Size = new Size(75, 23);
+            passwordHistoryCopyBtn.Size = new Size(75, 32);
             passwordHistoryCopyBtn.TabIndex = 1;
             passwordHistoryCopyBtn.Text = "Copy";
             passwordHistoryCopyBtn.UseVisualStyleBackColor = true;
@@ -57,9 +59,10 @@
             // 
             // passwordHistoryDeleteBtn
             // 
+            passwordHistoryDeleteBtn.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
             passwordHistoryDeleteBtn.Location = new Point(287, 390);
             passwordHistoryDeleteBtn.Name = "passwordHistoryDeleteBtn";
-            passwordHistoryDeleteBtn.Size = new Size(75, 23);
+            passwordHistoryDeleteBtn.Size = new Size(75, 32);
             passwordHistoryDeleteBtn.TabIndex = 2;
             passwordHistoryDeleteBtn.Text = "Delete";
             passwordHistoryDeleteBtn.UseVisualStyleBackColor = true;
@@ -67,9 +70,10 @@
             // 
             // btnDetails
             // 
+            btnDetails.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnDetails.Location = new Point(116, 390);
             btnDetails.Name = "btnDetails";
-            btnDetails.Size = new Size(75, 23);
+            btnDetails.Size = new Size(78, 32);
             btnDetails.TabIndex = 3;
             btnDetails.Text = "Details";
             btnDetails.UseVisualStyleBackColor = true;
@@ -77,7 +81,7 @@
             // 
             // PasswordHistory
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(395, 450);
