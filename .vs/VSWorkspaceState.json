@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\PassGen",
+    "\\PassGen\\PassGenv2UnitTest"
   ],
+  "SelectedNode": "\\PassGen\\PassGenv2UnitTest\\UnitTest1.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -13,9 +13,12 @@ namespace PassGen
 {
     public partial class PasswordHistory : Form
     {
+        private PassGen_Main passGenMainInstance;
         public PasswordHistory()
         {
             InitializeComponent();
+            
+            passGenMainInstance = new PassGen_Main();
 
             // Populate password history when the form is loaded
 
@@ -28,12 +31,6 @@ namespace PassGen
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-
-                string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT)";
-                using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
 
                 string selectQuery = "SELECT ID, EncryptedPassword, AESKey, IV FROM Passwords";
                 using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
@@ -55,7 +52,10 @@ namespace PassGen
 
                             string decryptedPassword = Recrypt.Decrypt(encryptedPasswordBytes, aesKey, iv);
 
-                            savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword));
+                            // Calculate password strength
+                            int strength = passGenMainInstance.CalculatePasswordStrength(decryptedPassword, true, true, true, true);
+
+                            savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword, strength));
                         }
                     }
                 }
@@ -64,7 +64,6 @@ namespace PassGen
 
         public void passwordHistoryCopyBtn_Click(object sender, EventArgs e)
         {
-
             // Copy selected password to clipboard
             if (savedPasswordsListBox.SelectedItem != null)
             {
@@ -120,14 +119,16 @@ namespace PassGen
             public string AESKey { get; }
             public string IV { get; }
             public string DecryptedPassword { get; }
+            public int Strength { get; }
 
-            public PasswordItem(int id, string encryptedPassword, string aesKey, string iv, string decryptedPassword)
+            public PasswordItem(int id, string encryptedPassword, string aesKey, string iv, string decryptedPassword, int strength)
             {
                 ID = id;
                 EncryptedPassword = encryptedPassword;
                 AESKey = aesKey;
                 IV = iv;
                 DecryptedPassword = decryptedPassword;
+                Strength = strength;
             }
 
             public override string ToString()
@@ -136,18 +137,22 @@ namespace PassGen
             }
         }
         //Displays additional information about the selected password
-        //Includes the ID, Encrypted and Decrypted versions, the AES key, and the IV
+        //Includes the ID, Encrypted and Decrypted versions, the AES key, the IV, and strength score
         public void btnDetails_Click(object sender, EventArgs e)
         {
             if (savedPasswordsListBox.SelectedItem != null)
             {
                 PasswordItem selectedPassword = (PasswordItem)savedPasswordsListBox.SelectedItem;
 
+                // Calculate the strength label based on the strength score
+                string strengthLabel = GetStrengthLabel(selectedPassword.Strength);
+
                 string message = $"ID: {selectedPassword.ID}\n" +
                                  $"Encrypted Password: {selectedPassword.EncryptedPassword}\n" +
                                  $"Decrypted Password: {selectedPassword.DecryptedPassword}\n" +
                                  $"AES Key: {selectedPassword.AESKey}\n" +
-                                 $"IV: {selectedPassword.IV}";
+                                 $"IV: {selectedPassword.IV}\n" +
+                                 $"Strength: {selectedPassword.Strength} ({strengthLabel})";
 
                 MessageBox.Show(message, "Password Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -157,9 +162,46 @@ namespace PassGen
             }
         }
 
-        private void savedPasswordsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        public string GetStrengthLabel(int strength)
         {
-
+            if (strength < 33)
+            {
+                return "Weak";
+            }
+            else if (strength < 66)
+            {
+                return "Average";
+            }
+            else
+            {
+                return "Strong";
+            }
         }
+
+        private void passwordHistoryExportBtn_Click(object sender, EventArgs e)
+        {
+            // Create a SaveFileDialog to choose the export file location
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv";
+            saveFileDialog.Title = "Export Passwords";
+            saveFileDialog.FileName = "passwords";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Open the selected file for writing
+                using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName))
+                {
+                    // Write each decrypted password from the list to the file
+                    foreach (PasswordItem passwordItem in savedPasswordsListBox.Items)
+                    {
+                        writer.WriteLine(passwordItem.DecryptedPassword);
+                    }
+                }
+
+                MessageBox.Show("Passwords exported successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
     }
 }
