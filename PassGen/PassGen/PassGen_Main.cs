@@ -9,7 +9,7 @@ namespace PassGen
 {
     public partial class PassGen_Main : Form
     {
-       
+
         private StrengthMeter strengthMeter;
         private Random random = new Random();
 
@@ -18,6 +18,8 @@ namespace PassGen
         const string numberChars = "0123456789";
         const string specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
         const string ambiguousChars = "il1Lo0O";
+
+        private string[] accountTypes = { "Email", "Social Media", "Banking", "Other" };
 
         private int strength;
 
@@ -37,6 +39,8 @@ namespace PassGen
             Controls.Add(strengthMeter);
 
             strengthMeter.BringToFront();
+
+            comboBoxAccountType.Items.AddRange(accountTypes);
         }
 
         public void btnGenerate_Click(object sender, EventArgs e)
@@ -113,7 +117,7 @@ namespace PassGen
 
             int strength = lengthScore + diversityBonus - repeatedCharScore;
 
-            
+
 
             return strength;
         }
@@ -225,10 +229,19 @@ namespace PassGen
                 {
                     MessageBox.Show("Please generate a password before saving.", "Empty Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
-                    
+
                 }
-                    // Encrypt the password using Recrypt Class
-                    byte[] key = new byte[16];
+
+                string selectedAccountType = comboBoxAccountType.SelectedItem?.ToString();
+
+                if (string.IsNullOrEmpty(selectedAccountType))
+                {
+                    MessageBox.Show("Please select an account type.", "No Account Type Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Encrypt the password using Recrypt Class
+                byte[] key = new byte[16];
                 byte[] iv = new byte[16];
 
                 using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
@@ -257,20 +270,21 @@ namespace PassGen
                         connection.Open();
 
                         // Creates a table to house the saved passwords if one does not already exist
-                        string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT, Strength INTEGER)";
+                        string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT, Strength INTEGER, AccountType TEXT)";
                         using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
                         {
                             command.ExecuteNonQuery();
                         }
 
                         // Places the encrypted password into the DB
-                        string insertQuery = "INSERT INTO Passwords (EncryptedPassword, AESKey, IV, Strength) VALUES (@encryptedPassword, @aesKey, @iv, @strength)";
+                        string insertQuery = "INSERT INTO Passwords (EncryptedPassword, AESKey, IV, Strength, AccountType) VALUES (@encryptedPassword, @aesKey, @iv, @strength, @accountType)";
                         using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                         {
                             command.Parameters.AddWithValue("@encryptedPassword", encryptedPasswordString);
                             command.Parameters.AddWithValue("@aesKey", Convert.ToBase64String(key));
                             command.Parameters.AddWithValue("@iv", Convert.ToBase64String(iv));
                             command.Parameters.AddWithValue("@strength", strength);
+                            command.Parameters.AddWithValue("@accountType", selectedAccountType); 
                             command.ExecuteNonQuery();
                         }
                     }
@@ -312,6 +326,9 @@ namespace PassGen
             passwordHistoryForm.Show();
         }
 
+        private void comboBoxAccountType_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

@@ -36,6 +36,7 @@
             mainPanel = new Panel();
             btnViewPasswords = new Button();
             lblPasswordStrength = new Label();
+            comboBoxAccountType = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             mainPanel.SuspendLayout();
             SuspendLayout();
@@ -43,10 +44,9 @@
             // btnGenerate
             // 
             btnGenerate.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnGenerate.Location = new Point(141, 273);
-            btnGenerate.Margin = new Padding(3, 4, 3, 4);
+            btnGenerate.Location = new Point(123, 205);
             btnGenerate.Name = "btnGenerate";
-            btnGenerate.Size = new Size(105, 43);
+            btnGenerate.Size = new Size(92, 32);
             btnGenerate.TabIndex = 0;
             btnGenerate.Text = "Generate";
             btnGenerate.UseVisualStyleBackColor = true;
@@ -56,12 +56,11 @@
             // 
             txtPassword.BackColor = SystemColors.ButtonHighlight;
             txtPassword.Font = new Font("Calibri", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
-            txtPassword.Location = new Point(96, 163);
-            txtPassword.Margin = new Padding(3, 4, 3, 4);
+            txtPassword.Location = new Point(84, 122);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "Password will appear here...";
             txtPassword.ReadOnly = true;
-            txtPassword.Size = new Size(289, 28);
+            txtPassword.Size = new Size(253, 24);
             txtPassword.TabIndex = 1;
             txtPassword.TextAlign = HorizontalAlignment.Center;
             // 
@@ -69,10 +68,9 @@
             // 
             btnSave.BackColor = Color.Transparent;
             btnSave.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnSave.Location = new Point(253, 273);
-            btnSave.Margin = new Padding(3, 4, 3, 4);
+            btnSave.Location = new Point(221, 205);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(105, 43);
+            btnSave.Size = new Size(92, 32);
             btnSave.TabIndex = 2;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = false;
@@ -82,34 +80,32 @@
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(-1, -1);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(575, 261);
+            pictureBox1.Size = new Size(503, 196);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
             // mainPanel
             // 
+            mainPanel.Controls.Add(comboBoxAccountType);
             mainPanel.Controls.Add(btnViewPasswords);
             mainPanel.Controls.Add(lblPasswordStrength);
             mainPanel.Controls.Add(txtPassword);
             mainPanel.Controls.Add(btnGenerate);
             mainPanel.Controls.Add(btnSave);
             mainPanel.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            mainPanel.Location = new Point(53, 185);
-            mainPanel.Margin = new Padding(3, 4, 3, 4);
+            mainPanel.Location = new Point(46, 139);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(568, 607);
+            mainPanel.Size = new Size(497, 455);
             mainPanel.TabIndex = 4;
             // 
             // btnViewPasswords
             // 
             btnViewPasswords.Font = new Font("Calibri", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnViewPasswords.Location = new Point(397, 334);
-            btnViewPasswords.Margin = new Padding(3, 4, 3, 4);
+            btnViewPasswords.Location = new Point(347, 250);
             btnViewPasswords.Name = "btnViewPasswords";
-            btnViewPasswords.Size = new Size(105, 43);
+            btnViewPasswords.Size = new Size(92, 32);
             btnViewPasswords.TabIndex = 4;
             btnViewPasswords.Text = "Passwords";
             btnViewPasswords.UseVisualStyleBackColor = true;
@@ -118,25 +114,33 @@
             // lblPasswordStrength
             // 
             lblPasswordStrength.AutoSize = true;
-            lblPasswordStrength.Location = new Point(224, 247);
+            lblPasswordStrength.Location = new Point(196, 185);
             lblPasswordStrength.Name = "lblPasswordStrength";
-            lblPasswordStrength.Size = new Size(0, 18);
+            lblPasswordStrength.Size = new Size(0, 14);
             lblPasswordStrength.TabIndex = 3;
+            // 
+            // comboBoxAccountType
+            // 
+            comboBoxAccountType.FormattingEnabled = true;
+            comboBoxAccountType.Location = new Point(84, 94);
+            comboBoxAccountType.Name = "comboBoxAccountType";
+            comboBoxAccountType.Size = new Size(253, 22);
+            comboBoxAccountType.TabIndex = 5;
+            comboBoxAccountType.SelectedIndexChanged += comboBoxAccountType_SelectedIndexChanged;
             // 
             // PassGen_Main
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
-            ClientSize = new Size(567, 575);
+            ClientSize = new Size(498, 437);
             Controls.Add(pictureBox1);
             Controls.Add(mainPanel);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new Size(585, 622);
+            MaximumSize = new Size(514, 476);
             MinimizeBox = false;
-            MinimumSize = new Size(585, 622);
+            MinimumSize = new Size(514, 476);
             Name = "PassGen_Main";
             Text = "PassGen";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -154,5 +158,6 @@
         private Panel mainPanel;
         private Label lblPasswordStrength;
         private Button btnViewPasswords;
+        private ComboBox comboBoxAccountType;
     }
 }
