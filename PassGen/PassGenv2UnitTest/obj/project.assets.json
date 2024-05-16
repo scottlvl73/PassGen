@@ -3510,11 +3510,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+      "projectUniqueName": "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
       "projectName": "PassGenv2UnitTest",
-      "projectPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
+      "projectPath": "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGenv2UnitTest\\PassGenv2UnitTest.csproj",
       "packagesPath": "C:\\Users\\baker\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGenv2UnitTest\\obj\\",
+      "outputPath": "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGenv2UnitTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3536,8 +3536,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj": {
-              "projectPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj"
+            "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj": {
+              "projectPath": "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj"
             }
           }
         }

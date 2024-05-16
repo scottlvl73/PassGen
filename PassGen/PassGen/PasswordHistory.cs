@@ -32,7 +32,7 @@ namespace PassGen
             {
                 connection.Open();
 
-                string selectQuery = "SELECT ID, EncryptedPassword, AESKey, IV FROM Passwords";
+                string selectQuery = "SELECT ID, EncryptedPassword, AESKey, IV, AccountType FROM Passwords";
                 using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                 {
                     using (SQLiteDataReader reader = command.ExecuteReader())
@@ -45,6 +45,7 @@ namespace PassGen
                             string encryptedPassword = reader["EncryptedPassword"].ToString();
                             string aesKeyString = reader["AESKey"].ToString();
                             string ivString = reader["IV"].ToString();
+                            string accountType = reader["AccountType"].ToString(); // Retrieve account type from database
 
                             byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
                             byte[] aesKey = Convert.FromBase64String(aesKeyString);
@@ -55,7 +56,7 @@ namespace PassGen
                             // Calculate password strength
                             int strength = passGenMainInstance.CalculatePasswordStrength(decryptedPassword, true, true, true, true);
 
-                            savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword, strength));
+                            savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword, strength, accountType));
                         }
                     }
                 }
@@ -120,8 +121,10 @@ namespace PassGen
             public string IV { get; }
             public string DecryptedPassword { get; }
             public int Strength { get; }
+            public string AccountType { get; }
 
-            public PasswordItem(int id, string encryptedPassword, string aesKey, string iv, string decryptedPassword, int strength)
+            // Update the constructor to accept seven arguments
+            public PasswordItem(int id, string encryptedPassword, string aesKey, string iv, string decryptedPassword, int strength, string accountType)
             {
                 ID = id;
                 EncryptedPassword = encryptedPassword;
@@ -129,6 +132,7 @@ namespace PassGen
                 IV = iv;
                 DecryptedPassword = decryptedPassword;
                 Strength = strength;
+                AccountType = accountType;
             }
 
             public override string ToString()
@@ -148,11 +152,12 @@ namespace PassGen
                 string strengthLabel = GetStrengthLabel(selectedPassword.Strength);
 
                 string message = $"ID: {selectedPassword.ID}\n" +
-                                 $"Encrypted Password: {selectedPassword.EncryptedPassword}\n" +
-                                 $"Decrypted Password: {selectedPassword.DecryptedPassword}\n" +
-                                 $"AES Key: {selectedPassword.AESKey}\n" +
-                                 $"IV: {selectedPassword.IV}\n" +
-                                 $"Strength: {selectedPassword.Strength} ({strengthLabel})";
+                  $"Encrypted Password: {selectedPassword.EncryptedPassword}\n" +
+                  $"Decrypted Password: {selectedPassword.DecryptedPassword}\n" +
+                  $"AES Key: {selectedPassword.AESKey}\n" +
+                  $"IV: {selectedPassword.IV}\n" +
+                  $"Strength: {selectedPassword.Strength} ({strengthLabel})\n" +
+                  $"Account Type: {selectedPassword.AccountType}";
 
                 MessageBox.Show(message, "Password Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

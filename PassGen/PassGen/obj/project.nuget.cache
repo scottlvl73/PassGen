@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "METffkMteXc1LYmAfGMGny00kGGaj9J/IZFOT7IHYN3Eo05rt0FkaJZZWQh20vAL4a7YMqjtuzI0f90mhvm9jA==",
+  "dgSpecHash": "f1MI8XKY7HHpYmngAOL2iVJcdumD/8Uki2L/xrhTzZHX+Xc800XAoNFntsl4peOzh7So47bSfY1uTfmLMX3UbQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
+  "projectFilePath": "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\baker\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\baker\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

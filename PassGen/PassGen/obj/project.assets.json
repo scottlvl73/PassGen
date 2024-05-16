@@ -1221,11 +1221,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
+      "projectUniqueName": "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
       "projectName": "PassGen",
-      "projectPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
+      "projectPath": "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\PassGen.csproj",
       "packagesPath": "C:\\Users\\baker\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\baker\\Source\\Repos\\PassGen\\PassGen\\PassGen\\obj\\",
+      "outputPath": "C:\\Users\\baker\\Source\\Repos\\scottlvl73\\PassGen\\PassGen\\PassGen\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
