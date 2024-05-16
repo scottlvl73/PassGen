@@ -185,28 +185,31 @@ namespace PassGen
 
         private void passwordHistoryExportBtn_Click(object sender, EventArgs e)
         {
-            // Create a SaveFileDialog to choose the export file location
+            // Creates a SaveDialog and allows the user to select a desired file path
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv";
-            saveFileDialog.Title = "Export Passwords";
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt"; //Forces a save in a .txt format
             saveFileDialog.FileName = "passwords";
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Open the selected file for writing
+                //Opens the password.txt file to write to it
                 using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName))
                 {
-                    // Write each decrypted password from the list to the file
+                    // Write each decrypted password and account type to the file
                     foreach (PasswordItem passwordItem in savedPasswordsListBox.Items)
                     {
-                        writer.WriteLine(passwordItem.DecryptedPassword);
+                        //Added formatting to make the output more legible
+                        writer.WriteLine($"Account Type: {passwordItem.AccountType}");
+                        writer.WriteLine($"Decrypted Password: {passwordItem.DecryptedPassword}");
+                        writer.WriteLine(); 
                     }
                 }
 
                 MessageBox.Show("Passwords exported successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+    }
 
 
     }
-}
+

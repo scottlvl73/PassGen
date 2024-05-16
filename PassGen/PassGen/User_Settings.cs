@@ -12,7 +12,7 @@ namespace PassGen
 {
     public partial class User_Settings : Form
     {
-        
+
         // Properties to access control values
         public int PasswordLength
         {
@@ -60,13 +60,50 @@ namespace PassGen
         public User_Settings()
         {
             InitializeComponent();
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            // Loads user settings from Properties.Settings
+            numericUpDownLength.Value = Properties.Settings.Default.PasswordLength;
+            chkIncludeUppercase.Checked = Properties.Settings.Default.IncludeUppercase;
+            chkIncludeLowercase.Checked = Properties.Settings.Default.IncludeLowercase;
+            chkIncludeNumbers.Checked = Properties.Settings.Default.IncludeNumbers;
+            chkIncludeSpecialChars.Checked = Properties.Settings.Default.IncludeSpecialChars;
+            chkExcludeAmbiguous.Checked = Properties.Settings.Default.ExcludeAmbiguousChars;
+            chkAvoidRepeatingChars.Checked = Properties.Settings.Default.AvoidRepeatingChars;
+        }
+
+        private void SaveSettings()
+        {
+            // Saves user settings to Properties.Settings
+            Properties.Settings.Default.PasswordLength = (int)numericUpDownLength.Value;
+            Properties.Settings.Default.IncludeUppercase = chkIncludeUppercase.Checked;
+            Properties.Settings.Default.IncludeLowercase = chkIncludeLowercase.Checked;
+            Properties.Settings.Default.IncludeNumbers = chkIncludeNumbers.Checked;
+            Properties.Settings.Default.IncludeSpecialChars = chkIncludeSpecialChars.Checked;
+            Properties.Settings.Default.ExcludeAmbiguousChars = chkExcludeAmbiguous.Checked;
+            Properties.Settings.Default.AvoidRepeatingChars = chkAvoidRepeatingChars.Checked;
+            Properties.Settings.Default.Save();
         }
 
         public void btnApply_Click(object sender, EventArgs e)
         {
+            SaveSettings();
             //Applies the selected parameters to the algorithm and then generates the password
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        //Saves settings even if the user manually closes the form without hitting apply
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                SaveSettings();
+            }
         }
     }
 }

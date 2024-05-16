@@ -306,3 +306,4 @@ C:\Users\baker\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\obj\Debug\net6.0-
 C:\Users\baker\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\obj\Debug\net6.0-windows\PassGen.pdb
 C:\Users\baker\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\obj\Debug\net6.0-windows\PassGen.genruntimeconfig.cache
 C:\Users\baker\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\obj\Debug\net6.0-windows\ref\PassGen.dll
+C:\Users\baker\Source\Repos\scottlvl73\PassGen\PassGen\PassGen\bin\Debug\net6.0-windows\PassGen.dll.config

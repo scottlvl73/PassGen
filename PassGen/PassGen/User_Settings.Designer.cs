@@ -58,14 +58,12 @@
             // numericUpDownLength
             // 
             numericUpDownLength.Font = new Font("Calibri", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            numericUpDownLength.Location = new Point(432, 205);
+            numericUpDownLength.Location = new Point(432, 204);
             numericUpDownLength.Margin = new Padding(3, 4, 3, 4);
             numericUpDownLength.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
-            numericUpDownLength.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             numericUpDownLength.Name = "numericUpDownLength";
             numericUpDownLength.Size = new Size(77, 24);
             numericUpDownLength.TabIndex = 1;
-            numericUpDownLength.Value = new decimal(new int[] { 8, 0, 0, 0 });
             // 
             // chkIncludeUppercase
             // 
