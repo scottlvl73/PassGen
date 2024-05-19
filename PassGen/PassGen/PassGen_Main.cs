@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Data.SQLite;
 using System.Data;
+using PassGen.Properties;
 
 namespace PassGen
 {
@@ -23,12 +24,14 @@ namespace PassGen
 
         private int strength;
 
+        private ISettings settings;
+
         public User_Settings settingsForm;
 
         public PassGen_Main()
         {
             InitializeComponent();
-            settingsForm = new User_Settings();
+            settings = new SettingsWrapper();
             strengthMeter = new StrengthMeter();
             // Used for adjusting the location of the custom drawn meter
             // Important for any UI changes
@@ -45,45 +48,47 @@ namespace PassGen
 
         public void btnGenerate_Click(object sender, EventArgs e)
         {
-            if (settingsForm.ShowDialog() == DialogResult.OK)
+            using (var settingsForm = new User_Settings(settings))
             {
-                int length = settingsForm.PasswordLength;
-                bool includeUppercase = settingsForm.IncludeUppercase;
-                bool includeLowercase = settingsForm.IncludeLowercase;
-                bool includeNumbers = settingsForm.IncludeNumbers;
-                bool includeSpecialChars = settingsForm.IncludeSpecialChars;
-
-                // Check if password length is at least 1
-                if (length < 1)
+                if (settingsForm.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Please select a minimum length of 1 for your password.", "Invalid Password Length", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Exit the method without further execution
+                    int length = settings.PasswordLength;
+                    bool includeUppercase = settings.IncludeUppercase;
+                    bool includeLowercase = settings.IncludeLowercase;
+                    bool includeNumbers = settings.IncludeNumbers;
+                    bool includeSpecialChars = settings.IncludeSpecialChars;
+
+                    if (length < 1)
+                    {
+                        MessageBox.Show("Please select a minimum length of 1 for your password.", "Invalid Password Length", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Calls the GeneratePassword method to generate a password based on specified parameters
+                    string password = GeneratePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
+
+                    // Shows the user's generated password in the main textbox
+                    txtPassword.Text = password;
+
+                    // Calculate password strength
+                    strength = CalculatePasswordStrength(password, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
+
+                    // Updates the drawn strengthMeter every time the CalculatePasswordStrength function is called
+                    strengthMeter.Strength = strength;
+
+                    // Updates the password strength label when the UpdatePasswordStrengthLabel function is called
+                    UpdatePasswordStrengthLabel(strength);
+
+                    //Resets strengthMeter when textbox is cleared
+                    txtPassword.TextChanged += TxtPassword_TextChanged;
                 }
-
-                // Calls the GeneratePassword method to generate a password based on specified parameters
-                string password = GeneratePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
-
-                // Shows the user's generated password in the main textbox
-                txtPassword.Text = password;
-
-                // Calculate password strength
-                strength = CalculatePasswordStrength(password, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
-
-                // Updates the drawn strengthMeter every time the CalculatePasswordStrength function is called
-                strengthMeter.Strength = strength;
-
-                // Updates the password strength label when the UpdatePasswordStrengthLabel function is called
-                UpdatePasswordStrengthLabel(strength);
-
-                //Resets strengthMeter when textbox is cleared
-                txtPassword.TextChanged += TxtPassword_TextChanged;
 
             }
         }
 
         private void TxtPassword_TextChanged(object sender, EventArgs e)
         {
-            // Clears stregnth meter when password is cleared from textbox
+            // Clears strength meter when password is cleared from textbox
             strengthMeter.Strength = 0;
             lblPasswordStrength.Text = "";
         }
@@ -330,5 +335,6 @@ namespace PassGen
         {
 
         }
+
     }
 }
