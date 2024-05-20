@@ -13,6 +13,8 @@ namespace PassGen
     public partial class User_Settings : Form
     {
 
+        private readonly ISettings _settings;
+
         // Properties to access control values
         public int PasswordLength
         {
@@ -57,35 +59,36 @@ namespace PassGen
             set => chkAvoidRepeatingChars.Checked = value;
         }
 
-        public User_Settings()
+        public User_Settings(ISettings settings)
         {
+            _settings = settings;
             InitializeComponent();
             LoadSettings();
         }
 
-        private void LoadSettings()
+        public void LoadSettings()
         {
             // Loads user settings from Properties.Settings
-            numericUpDownLength.Value = Properties.Settings.Default.PasswordLength;
-            chkIncludeUppercase.Checked = Properties.Settings.Default.IncludeUppercase;
-            chkIncludeLowercase.Checked = Properties.Settings.Default.IncludeLowercase;
-            chkIncludeNumbers.Checked = Properties.Settings.Default.IncludeNumbers;
-            chkIncludeSpecialChars.Checked = Properties.Settings.Default.IncludeSpecialChars;
-            chkExcludeAmbiguous.Checked = Properties.Settings.Default.ExcludeAmbiguousChars;
-            chkAvoidRepeatingChars.Checked = Properties.Settings.Default.AvoidRepeatingChars;
+            numericUpDownLength.Value = _settings.PasswordLength;
+            chkIncludeUppercase.Checked = _settings.IncludeUppercase;
+            chkIncludeLowercase.Checked = _settings.IncludeLowercase;
+            chkIncludeNumbers.Checked = _settings.IncludeNumbers;
+            chkIncludeSpecialChars.Checked = _settings.IncludeSpecialChars;
+            chkExcludeAmbiguous.Checked = _settings.ExcludeAmbiguousChars;
+            chkAvoidRepeatingChars.Checked = _settings.AvoidRepeatingChars;
         }
 
-        private void SaveSettings()
+        public void SaveSettings()
         {
             // Saves user settings to Properties.Settings
-            Properties.Settings.Default.PasswordLength = (int)numericUpDownLength.Value;
-            Properties.Settings.Default.IncludeUppercase = chkIncludeUppercase.Checked;
-            Properties.Settings.Default.IncludeLowercase = chkIncludeLowercase.Checked;
-            Properties.Settings.Default.IncludeNumbers = chkIncludeNumbers.Checked;
-            Properties.Settings.Default.IncludeSpecialChars = chkIncludeSpecialChars.Checked;
-            Properties.Settings.Default.ExcludeAmbiguousChars = chkExcludeAmbiguous.Checked;
-            Properties.Settings.Default.AvoidRepeatingChars = chkAvoidRepeatingChars.Checked;
-            Properties.Settings.Default.Save();
+            _settings.PasswordLength = (int)numericUpDownLength.Value;
+            _settings.IncludeUppercase = chkIncludeUppercase.Checked;
+            _settings.IncludeLowercase = chkIncludeLowercase.Checked;
+            _settings.IncludeNumbers = chkIncludeNumbers.Checked;
+            _settings.IncludeSpecialChars = chkIncludeSpecialChars.Checked;
+            _settings.ExcludeAmbiguousChars = chkExcludeAmbiguous.Checked;
+            _settings.AvoidRepeatingChars = chkAvoidRepeatingChars.Checked;
+            _settings.Save();
         }
 
         public void btnApply_Click(object sender, EventArgs e)
