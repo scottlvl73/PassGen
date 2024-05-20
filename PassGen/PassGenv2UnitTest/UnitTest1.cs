@@ -251,7 +251,7 @@ namespace PassGenv2UnitTest
         public void TestDBCreate()
         {
             //Arrange
-            string connectionstring = "Data Source=myDatabase.db;Version=3;";
+            string connectionstring = "Data Source=myDatabaseTest.db;Version=3;";
 
             //Act
 
@@ -298,6 +298,9 @@ namespace PassGenv2UnitTest
             }
 
             //Act
+            passMain.txtPassword.Text = passWord;
+            passMain.comboBoxAccountType.SelectedItem = passMain.comboBoxAccountType.Items[0];
+          
             passMain.btnSave_Click(sender, e);
 
 
@@ -448,11 +451,11 @@ namespace PassGenv2UnitTest
         public void ACreateTestDB()
         {
             //Create Test Database
-            string connectionString = "Data Source=myDatabaseTest.db;Version=3;";
+            string connectionString = "Data Source=myDatabase.db;Version=3;";
             using (SQLiteConnection connection = new(connectionString))
             {
                 connection.Open();
-                string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT)";
+                string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT, Strength INTEGER, AccountType TEXT)";
                 using (SQLiteCommand command = new(createTableQuery, connection))
                 {
                     command.ExecuteNonQuery();
@@ -487,6 +490,8 @@ namespace PassGenv2UnitTest
             string passWord = passmain.GeneratePassword(15, true, true, true, true);
             byte[] key = new byte[16];
             byte[] iv = new byte[16];
+            int strength = 75;
+            string selectedAccountType ="Email";
 
             using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
             {
@@ -502,16 +507,25 @@ namespace PassGenv2UnitTest
             using (SQLiteConnection connection = new(connectionString))
             {
                 connection.Open();
-                string insertInto = "INSERT INTO Passwords (EncryptedPassword, AESKey, IV) VALUES (@encryptedPassword, @aesKey, @iv)";
+
+                string createTableQuery = "CREATE TABLE IF NOT EXISTS Passwords (ID INTEGER PRIMARY KEY, EncryptedPassword TEXT, AESKey TEXT, IV TEXT, Strength INTEGER, AccountType TEXT)";
+                using (SQLiteCommand command = new(createTableQuery, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                string insertInto = "INSERT INTO Passwords (EncryptedPassword, AESKey, IV, Strength, AccountType) VALUES (@encryptedPassword, @aesKey, @iv, @strength, @accountType)";
                 using (SQLiteCommand command = new(insertInto, connection))
                 {
                     command.Parameters.AddWithValue("@encryptedPassword ", encryptedPasswordString);
                     command.Parameters.AddWithValue("@aesKey", Convert.ToBase64String(key));
                     command.Parameters.AddWithValue("@iv", Convert.ToBase64String(iv));
-                    
+                    command.Parameters.AddWithValue("@strength", strength);
+                    command.Parameters.AddWithValue("@accountType", selectedAccountType);
 
 
-                    Debug.WriteLine("Data Inserted " + passWord);
+
+                    Debug.WriteLine("Data Inserted " + encryptedPasswordString + " " + Convert.ToBase64String(key) + " " +Convert.ToBase64String(iv) + " " + strength + " " + selectedAccountType);
                 }
 
             }

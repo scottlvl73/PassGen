@@ -152,12 +152,12 @@
         #endregion
 
         private Button btnGenerate;
-        private TextBox txtPassword;
+        public TextBox txtPassword;
         private Button btnSave;
         private PictureBox pictureBox1;
         private Panel mainPanel;
         private Label lblPasswordStrength;
         private Button btnViewPasswords;
-        private ComboBox comboBoxAccountType;
+        public ComboBox comboBoxAccountType;
     }
 }

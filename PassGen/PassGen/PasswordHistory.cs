@@ -27,42 +27,46 @@ namespace PassGen
 
         public void PopulatePasswordHistory()
         {
-            string connectionString = "Data Source=myDatabase.db;Version=3;";
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-
-                string selectQuery = "SELECT ID, EncryptedPassword, AESKey, IV, AccountType FROM Passwords";
-                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+            
+                string connectionString = "Data Source=myDatabase.db;Version=3;";
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    connection.Open();
+
+                    string selectQuery = "SELECT ID, EncryptedPassword, AESKey, IV, AccountType FROM Passwords";
+                    using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                     {
-                        savedPasswordsListBox.Items.Clear();
 
-                        while (reader.Read())
+                        using (SQLiteDataReader reader = command.ExecuteReader())
                         {
-                            int id = Convert.ToInt32(reader["ID"]);
-                            string encryptedPassword = reader["EncryptedPassword"].ToString();
-                            string aesKeyString = reader["AESKey"].ToString();
-                            string ivString = reader["IV"].ToString();
-                            string accountType = reader["AccountType"].ToString(); // Retrieve account type from database
+                            savedPasswordsListBox.Items.Clear();
 
-                            byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
-                            byte[] aesKey = Convert.FromBase64String(aesKeyString);
-                            byte[] iv = Convert.FromBase64String(ivString);
+                            while (reader.Read())
+                            {
+                                int id = Convert.ToInt32(reader["ID"]);
+                                string encryptedPassword = reader["EncryptedPassword"].ToString();
+                                string aesKeyString = reader["AESKey"].ToString();
+                                string ivString = reader["IV"].ToString();
+                                string accountType = reader["AccountType"].ToString(); // Retrieve account type from database
 
-                            string decryptedPassword = Recrypt.Decrypt(encryptedPasswordBytes, aesKey, iv);
+                                byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
+                                byte[] aesKey = Convert.FromBase64String(aesKeyString);
+                                byte[] iv = Convert.FromBase64String(ivString);
 
-                            // Calculate password strength
-                            int strength = passGenMainInstance.CalculatePasswordStrength(decryptedPassword, true, true, true, true);
+                                string decryptedPassword = Recrypt.Decrypt(encryptedPasswordBytes, aesKey, iv);
 
-                            savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword, strength, accountType));
+                                // Calculate password strength
+                                int strength = passGenMainInstance.CalculatePasswordStrength(decryptedPassword, true, true, true, true);
+
+                                savedPasswordsListBox.Items.Add(new PasswordItem(id, encryptedPassword, aesKeyString, ivString, decryptedPassword, strength, accountType));
+                            }
                         }
                     }
                 }
-            }
-        }
+            
+           
 
+        }
         public void passwordHistoryCopyBtn_Click(object sender, EventArgs e)
         {
             // Copy selected password to clipboard
