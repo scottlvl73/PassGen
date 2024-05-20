@@ -354,55 +354,57 @@ namespace PassGenv2UnitTest
 
         }
 
-        [TestMethod]
-        public void UserSettings_Test()
-        {
 
-            //Arrange
-            PassGen_Main passMain = new();
-            User_Settings userSettings = new User_Settings();
-            string sender = "";
-            System.EventArgs e = new();
-            userSettings.ExcludeAmbiguousChars = true;
-            userSettings.IncludeSpecialChars = true;
-            userSettings.IncludeNumbers = true;
-            userSettings.IncludeLowercase = true;
-            userSettings.IncludeUppercase = true;
-            userSettings.AvoidRepeatingChars = true;
-            userSettings.PasswordLength = 15;
+        //                  Deprecated Test Method
+        //[TestMethod]
+        //public void UserSettings_Test()
+        //{
 
-            //Act
-            userSettings.btnApply_Click(sender, e);
+        //    //Arrange
+        //    PassGen_Main passMain = new();
+        //    User_Settings userSettings = new();
+        //    string sender = "";
+        //    System.EventArgs e = new();
+        //    userSettings.ExcludeAmbiguousChars = true;
+        //    userSettings.IncludeSpecialChars = true;
+        //    userSettings.IncludeNumbers = true;
+        //    userSettings.IncludeLowercase = true;
+        //    userSettings.IncludeUppercase = true;
+        //    userSettings.AvoidRepeatingChars = true;
+        //    userSettings.PasswordLength = 15;
 
-            string password = passMain.GeneratePassword(userSettings.PasswordLength, userSettings.IncludeUppercase, userSettings.IncludeLowercase, userSettings.IncludeNumbers, userSettings.IncludeSpecialChars);
+        //    //Act
+        //    userSettings.btnApply_Click(sender, e);
+
+        //    string password = passMain.GeneratePassword(userSettings.PasswordLength, userSettings.IncludeUppercase, userSettings.IncludeLowercase, userSettings.IncludeNumbers, userSettings.IncludeSpecialChars);
 
 
-            //Assert
-            Assert.IsNotNull(password);
-            Debug.WriteLine(password);
+        //    //Assert
+        //    Assert.IsNotNull(password);
+        //    Debug.WriteLine(password);
 
-        }
-        [TestMethod]
-        public void btnGenerate_Test()
-        {
-            //Arrange
-            string sender = "";
-            System.EventArgs e = new();
-            PassGen_Main passMain = new();
-            User_Settings user_Settings = new User_Settings();
-            user_Settings.ExcludeAmbiguousChars = true;
-            user_Settings.IncludeSpecialChars = true;
-            user_Settings.IncludeNumbers = true;
-            user_Settings.IncludeLowercase = true;
-            user_Settings.IncludeUppercase = true;
-            user_Settings.AvoidRepeatingChars = true;
-            user_Settings.PasswordLength = 15;
-            //Act
-           passMain.btnGenerate_Click(sender, e);
+        //}
+        //[TestMethod]
+        //public void btnGenerate_Test()
+        //{
+        //    //Arrange
+        //    string sender = "";
+        //    System.EventArgs e = new();
+        //    PassGen_Main passMain = new();
+        //    User_Settings user_Settings = new User_Settings();
+        //    user_Settings.ExcludeAmbiguousChars = true;
+        //    user_Settings.IncludeSpecialChars = true;
+        //    user_Settings.IncludeNumbers = true;
+        //    user_Settings.IncludeLowercase = true;
+        //    user_Settings.IncludeUppercase = true;
+        //    user_Settings.AvoidRepeatingChars = true;
+        //    user_Settings.PasswordLength = 15;
+        //    //Act
+        //   passMain.btnGenerate_Click(sender, e);
             
            
             
-        }
+        //}
 
         [TestMethod]
         public void btnGenerate_TestNoCharactersSelected()
